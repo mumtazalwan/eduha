@@ -60,7 +60,10 @@ class _JoinViewState extends State<JoinView> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset('assets/images/google.png', height: 34.h,),
+                              Image.asset(
+                                'assets/images/google.png',
+                                height: 34.h,
+                              ),
                               SizedBox(
                                 width: 10.w,
                               ),
