@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppThemeData {
   static ThemeData getTheme() {
-    const Color primaryColor = Colors.white;
+    const Color primaryColor = Colors.black;
     final Map<int, Color> primaryColorMap = {
       50: primaryColor,
       100: primaryColor,
@@ -48,7 +48,7 @@ class AppThemeData {
       textTheme: TextTheme(
         headline1: GoogleFonts.inter(
           color: Colors.black,
-          fontSize: 16.sp,
+          fontSize: 24.sp,
           fontWeight: FontWeight.bold,
         ),
         headline2: GoogleFonts.inter(
@@ -58,12 +58,22 @@ class AppThemeData {
         ),
         headline3: GoogleFonts.inter(
             color: Colors.black,
-            fontSize: 24.sp,
+            fontSize: 16.sp,
             fontWeight: FontWeight.bold
+        ),
+        headline4: GoogleFonts.inter(
+          color: Colors.black,
+          fontSize: 12.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        headline5: GoogleFonts.inter(
+          color: Colors.black,
+          fontSize: 10.sp,
+          fontWeight: FontWeight.bold,
         ),
         subtitle1: GoogleFonts.inter(
           color: Colors.black,
-          fontSize: 16.sp,
+          fontSize: 18.sp,
           fontWeight: FontWeight.w500,
         ),
         subtitle2: GoogleFonts.inter(
@@ -79,16 +89,6 @@ class AppThemeData {
         bodyText2: GoogleFonts.inter(
           color: Colors.black,
           fontSize: 14.sp,
-          fontWeight: FontWeight.bold,
-        ),
-        bodySmall: GoogleFonts.inter(
-          color: Colors.black,
-          fontSize: 10.sp,
-          fontWeight: FontWeight.bold,
-        ),
-        bodyMedium: GoogleFonts.inter(
-          color: Colors.black,
-          fontSize: 12.sp,
           fontWeight: FontWeight.bold,
         ),
       ),

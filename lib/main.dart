@@ -1,5 +1,8 @@
 import 'package:eduha/common/theme_data.dart';
 import 'package:eduha/ui/home.dart';
+import 'package:eduha/ui/log_in/log_in.dart';
+import 'package:eduha/ui/sign_up/create_account.dart';
+import 'package:eduha/ui/sign_up/join.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: child,
       ),
-      child: const Home(),
+      child: const JoinView(),
     );
   }
 }
