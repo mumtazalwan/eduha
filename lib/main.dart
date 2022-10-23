@@ -1,12 +1,16 @@
 import 'package:eduha/common/theme_data.dart';
-import 'package:eduha/ui/home.dart';
-import 'package:eduha/ui/log_in/log_in.dart';
-import 'package:eduha/ui/sign_up/create_account.dart';
+import 'package:eduha/firebase_options.dart';
 import 'package:eduha/ui/sign_up/join.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 

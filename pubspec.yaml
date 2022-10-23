@@ -38,6 +38,7 @@ dependencies:
   flutter_screenutil:
   intl:
   font_awesome_flutter:
+  firebase_core:
 
 dev_dependencies:
   flutter_test:

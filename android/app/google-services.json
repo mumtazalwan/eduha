@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "879059285853",
+    "project_id": "eduha-4553f",
+    "storage_bucket": "eduha-4553f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879059285853:android:6a2f066265ed86d79edab4",
+        "android_client_info": {
+          "package_name": "com.example.eduha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879059285853-eithfcvee8lmfvfg5bl6vloutjmoc95p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eduha",
+            "certificate_hash": "5e20e8b8580f332a0fdf0d76d6b848699ad80521"
+          }
+        },
+        {
+          "client_id": "879059285853-nkts2ih282o5segd94abl4feg3ot7onr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtPo7HR4QEF96Yqmj01ZtQg_Rm2bsjHFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879059285853-nkts2ih282o5segd94abl4feg3ot7onr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "879059285853-68j4mk69kkfrtlo4h5r1bqate0pi9ro2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eduha"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
