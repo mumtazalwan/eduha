@@ -1,10 +1,11 @@
+import 'package:eduha/common/navigate.dart';
+import 'package:eduha/ui/sign_up/create_account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../common/color_values.dart';
-import '../widget/custom_text_field.dart';
 
 class JoinView extends StatefulWidget {
   const JoinView({Key? key}) : super(key: key);
@@ -14,9 +15,6 @@ class JoinView extends StatefulWidget {
 }
 
 class _JoinViewState extends State<JoinView> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -45,7 +43,7 @@ class _JoinViewState extends State<JoinView> {
                         child: Container(
                           width: size.width,
                           height: 55.h,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(5),
@@ -105,7 +103,9 @@ class _JoinViewState extends State<JoinView> {
                         height: 20.h,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigate.navigatorPush(context, const CreateAccountView());
+                        },
                         child: Container(
                           width: size.width,
                           height: 55.h,
@@ -149,7 +149,7 @@ class _JoinViewState extends State<JoinView> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       color: ColorValues.grey,
                       child: Center(
                         child: RichText(

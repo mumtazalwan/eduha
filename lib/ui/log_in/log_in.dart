@@ -1,3 +1,6 @@
+import 'package:eduha/common/navigate.dart';
+import 'package:eduha/service/firebase_service.dart';
+import 'package:eduha/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -64,7 +67,13 @@ class _LogInViewState extends State<LogInView> {
                         height: 10.h,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () async {
+                          bool shouldNavigate = await FirebaseService().signInEmail(_emailController.text, _passwordController.text);
+
+                          if (shouldNavigate) {
+                            Navigate.navigatorPush(context, Home());
+                          }
+                        },
                         child: Container(
                           width: size.width / 1.2,
                           height: 50,
@@ -178,7 +187,7 @@ class _LogInViewState extends State<LogInView> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
