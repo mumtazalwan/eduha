@@ -1,4 +1,8 @@
 import 'package:eduha/common/color_values.dart';
+import 'package:eduha/common/navigate.dart';
+import 'package:eduha/service/firebase_service.dart';
+import 'package:eduha/ui/home.dart';
+import 'package:eduha/ui/log_in/log_in.dart';
 import 'package:eduha/ui/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +22,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   final _passwordController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
+  final _birthdayController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +68,24 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      _customDatePicker(context, _emailController),
+                      _customDatePicker(context, _birthdayController),
                       SizedBox(
                         height: 30.h,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () async {
+                          bool shouldNavigate = await FirebaseService()
+                              .signUpEmail(
+                                  _emailController.text,
+                                  _passwordController.text,
+                                  _firstNameController.text,
+                                  _lastNameController.text,
+                                  _birthdayController.text);
+                          print('SHOULD NAVIGATE : $shouldNavigate');
+                          if (shouldNavigate) {
+                            Navigate.navigatorPush(context, Home());
+                          }
+                        },
                         child: Container(
                           width: size.width / 1.2,
                           height: 55,
@@ -118,25 +135,30 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            RichText(
-                              text: TextSpan(
-                                text: 'Existing user? ',
-                                style: GoogleFonts.inter(
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Log in',
-                                    style: GoogleFonts.inter(
-                                      color: Colors.black,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w500,
-                                      decoration: TextDecoration.underline,
-                                    ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigate.navigatorPush(context, LogInView());
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                  text: 'Existing user? ',
+                                  style: GoogleFonts.inter(
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
                                   ),
-                                ],
+                                  children: [
+                                    TextSpan(
+                                      text: 'Log in',
+                                      style: GoogleFonts.inter(
+                                        color: Colors.black,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(

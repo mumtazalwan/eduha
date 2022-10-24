@@ -1,6 +1,8 @@
 import 'package:eduha/common/theme_data.dart';
 import 'package:eduha/firebase_options.dart';
+import 'package:eduha/ui/home.dart';
 import 'package:eduha/ui/sign_up/join.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: child,
       ),
-      child: const JoinView(),
+      child: FirebaseAuth.instance.currentUser == null ? JoinView() : Home(),
     );
   }
 }
