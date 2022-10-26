@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../common/color_values.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String label;
   final TextEditingController controller;
   final TextInputType textInputType;
@@ -21,15 +21,22 @@ class CustomTextField extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool isPasswordVisible = true;
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      keyboardType: textInputType,
-      validator: validator,
+      controller: widget.controller,
+      keyboardType: widget.textInputType,
+      validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      obscureText: isPassword,
-      autocorrect: !isPassword,
-      enableSuggestions: !isPassword,
+      obscureText: widget.isPassword ? isPasswordVisible : false,
+      autocorrect: !widget.isPassword,
+      enableSuggestions: !widget.isPassword,
       style: GoogleFonts.inter(
         color: Colors.black.withOpacity(0.9),
         fontSize: 14.sp,
@@ -57,11 +64,24 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           borderSide: const BorderSide(width: 1.5, color: ColorValues.red),
         ),
-        labelText: label,
+        labelText: widget.label,
         labelStyle: GoogleFonts.inter(
           fontSize: 16.sp,
           fontWeight: FontWeight.w500,
         ),
+        suffixIcon: widget.isPassword
+            ? IconButton(
+                splashRadius: 30,
+                onPressed: () {
+                  setState(() {
+                    isPasswordVisible = !isPasswordVisible;
+                  });
+                },
+                icon: isPasswordVisible
+                    ? const Icon(Icons.visibility_off)
+                    : const Icon(Icons.visibility),
+              )
+            : null,
       ),
     );
   }
