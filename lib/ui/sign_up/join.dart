@@ -1,4 +1,6 @@
 import 'package:eduha/common/navigate.dart';
+import 'package:eduha/service/firebase_service.dart';
+import 'package:eduha/ui/home.dart';
 import 'package:eduha/ui/sign_up/create_account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,7 +41,14 @@ class _JoinViewState extends State<JoinView> {
                         height: 210.h,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () async {
+                          bool shouldNavigate =
+                              await FirebaseService().signInGoogle();
+
+                          if (shouldNavigate) {
+                            Navigate.navigatorPush(context, Home());
+                          }
+                        },
                         child: Container(
                           width: size.width,
                           height: 55.h,
@@ -104,7 +113,8 @@ class _JoinViewState extends State<JoinView> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigate.navigatorPush(context, const CreateAccountView());
+                          Navigate.navigatorPush(
+                              context, const CreateAccountView());
                         },
                         child: Container(
                           width: size.width,
@@ -152,31 +162,37 @@ class _JoinViewState extends State<JoinView> {
                       padding: const EdgeInsets.all(15),
                       color: ColorValues.grey,
                       child: Center(
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'No account yet ? ',
-                            style: GoogleFonts.inter(
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: 'Sign up',
-                                style: GoogleFonts.inter(
-                                  color: Colors.black,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.underline,
-                                ),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigate.navigatorPush(
+                                context, CreateAccountView());
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'No account yet ? ',
+                              style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
                               ),
-                            ],
+                              children: [
+                                TextSpan(
+                                  text: 'Sign up',
+                                  style: GoogleFonts.inter(
+                                    color: Colors.black,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
