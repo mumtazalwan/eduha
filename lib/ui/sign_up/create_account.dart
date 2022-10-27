@@ -108,6 +108,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                         });
                                         bool shouldNavigate =
                                             await FirebaseService().signUpEmail(
+                                                context,
                                                 _emailController.text,
                                                 _passwordController.text,
                                                 _firstNameController.text,
@@ -233,8 +234,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 height: MediaQuery.of(context).size.height,
                 color: Colors.white.withOpacity(0.5),
                 child: Center(
-                  child:
-                      Lottie.asset('assets/lottie/cubes_loader.json', height: 220.h),
+                  child: Lottie.asset('assets/lottie/cubes_loader.json',
+                      height: 220.h),
                 ),
               ),
             ),
