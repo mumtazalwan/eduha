@@ -43,6 +43,7 @@ dependencies:
   cloud_firestore:
   google_sign_in:
   smooth_page_indicator:
+  lottie:
 
 dev_dependencies:
   flutter_test:
@@ -70,7 +71,7 @@ flutter:
   assets:
      - assets/images/
      - assets/onboarding_img/
-  #   - images/a_dot_ham.jpeg
+     - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
