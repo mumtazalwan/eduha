@@ -30,7 +30,7 @@ class _SplashState extends State<Splash> {
           child: Container(
         color: Colors.white.withOpacity(0.4),
         child: Center(
-          child: Image.asset('assets/images/logo.png', width: 200.w),
+          child: Image.asset('assets/images/logo.png', width: 270.w),
         ),
       )),
     );
