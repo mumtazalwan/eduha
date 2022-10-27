@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BtnNavigation extends StatefulWidget {
   const BtnNavigation({Key? key}) : super(key: key);
@@ -50,10 +51,24 @@ class _BtnNavigationState extends State<BtnNavigation> {
           showUnselectedLabels: false,
           currentIndex: _selectedIndex,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home_filled, color: Colors.grey), activeIcon: Icon(Icons.home_filled, color: Colors.black), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.home_filled, color: Colors.grey), activeIcon: Icon(Icons.home_filled, color: Colors.black), label: "Courses"),
-            BottomNavigationBarItem(icon: Icon(Icons.home_filled, color: Colors.grey), activeIcon: Icon(Icons.home_filled, color: Colors.black), label: "News"),
-            BottomNavigationBarItem(icon: Icon(Icons.home_filled, color: Colors.grey), activeIcon: Icon(Icons.home_filled, color: Colors.black), label: "Account"),
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.house, color: Colors.grey),
+                activeIcon: FaIcon(FontAwesomeIcons.house, color: Colors.black),
+                label: "Home"),
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.linesLeaning, color: Colors.grey),
+                activeIcon:
+                    FaIcon(FontAwesomeIcons.linesLeaning, color: Colors.black),
+                label: "Courses"),
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.newspaper, color: Colors.grey),
+                activeIcon:
+                    FaIcon(FontAwesomeIcons.newspaper, color: Colors.black),
+                label: "News"),
+            BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.calendarDays, color: Colors.grey),
+                activeIcon: FaIcon(FontAwesomeIcons.calendarDays, color: Colors.black),
+                label: "Account"),
           ],
         ),
       ),

@@ -33,7 +33,6 @@ class _OnBoardingState extends State<OnBoarding> {
           padding: const EdgeInsets.only(bottom: 50),
           color: Colors.grey.withOpacity(0.2),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: [
                 Container(
@@ -50,6 +49,7 @@ class _OnBoardingState extends State<OnBoarding> {
                     },
                     children: [
                       Container(
+                        margin: EdgeInsets.symmetric(horizontal: 30),
                         color: Colors.white,
                         child: SafeArea(
                             child: Column(
@@ -72,6 +72,7 @@ class _OnBoardingState extends State<OnBoarding> {
                         )),
                       ),
                       Container(
+                        margin: EdgeInsets.symmetric(horizontal: 30),
                         color: Colors.white,
                         child: SafeArea(
                             child: Column(
@@ -107,6 +108,7 @@ class _OnBoardingState extends State<OnBoarding> {
                         )),
                       ),
                       Container(
+                        margin: EdgeInsets.symmetric(horizontal: 30),
                         color: Colors.white,
                         child: SafeArea(
                             child: Column(
@@ -166,7 +168,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   style: TextButton.styleFrom(
                       primary: Colors.white,
                       backgroundColor: dotcolor,
-                      minimumSize: Size.fromHeight(75)),
+                      minimumSize: Size.fromHeight(65.h)),
                   onPressed: () {
                     Navigate.navigatorPush(context, JoinView());
                   },
