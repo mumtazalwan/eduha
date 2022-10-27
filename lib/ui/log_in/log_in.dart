@@ -97,6 +97,7 @@ class _LogInViewState extends State<LogInView> {
                                       });
                                       bool shouldNavigate =
                                           await FirebaseService().signInEmail(
+                                            context,
                                               _emailController.text,
                                               _passwordController.text);
 
