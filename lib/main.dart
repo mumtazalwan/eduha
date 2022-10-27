@@ -1,6 +1,6 @@
 import 'package:eduha/common/theme_data.dart';
 import 'package:eduha/firebase_options.dart';
-import 'package:eduha/ui/bottomNav.dart';
+import 'package:eduha/ui/bottom_navigation.dart';
 import 'package:eduha/ui/home.dart';
 import 'package:eduha/ui/splash_intro/splash_intro.dart';
 import 'package:firebase_auth/firebase_auth.dart';
