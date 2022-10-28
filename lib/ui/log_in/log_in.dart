@@ -127,29 +127,32 @@ class _LogInViewState extends State<LogInView> {
                                 SizedBox(
                                   height: 20.h,
                                 ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Divider(
-                                        color: Colors.grey.withOpacity(0.4),
-                                        thickness: 1.5,
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Divider(
+                                          color: Colors.grey.withOpacity(0.4),
+                                          thickness: 1.5,
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 10.w),
-                                      child: Text(
-                                        'OR',
-                                        style: theme.bodyText1,
+                                      Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 10.w),
+                                        child: Text(
+                                          'OR',
+                                          style: theme.bodyText1,
+                                        ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Divider(
-                                        color: Colors.grey.withOpacity(0.4),
-                                        thickness: 1.5,
+                                      Expanded(
+                                        child: Divider(
+                                          color: Colors.grey.withOpacity(0.4),
+                                          thickness: 1.5,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 20.h,

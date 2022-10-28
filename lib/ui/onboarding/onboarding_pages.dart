@@ -23,7 +23,6 @@ class _OnBoardingState extends State<OnBoarding> {
   void dispose() {
     super.dispose();
     controller.dispose();
-    super.dispose();
   }
 
   @override
