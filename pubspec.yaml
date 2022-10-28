@@ -44,6 +44,7 @@ dependencies:
   google_sign_in:
   smooth_page_indicator:
   lottie:
+  flutter_profile_picture:
 
 dev_dependencies:
   flutter_test:

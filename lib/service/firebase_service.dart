@@ -15,7 +15,9 @@ class FirebaseService {
         FirebaseFirestore.instance.runTransaction((transaction) async {
           DocumentReference documentReference = FirebaseFirestore.instance
               .collection('users')
-              .doc(FirebaseAuth.instance.currentUser!.uid);
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('user')
+              .doc('profile');
           DocumentSnapshot snapshot = await transaction.get(documentReference);
 
           if (!snapshot.exists) {
@@ -102,7 +104,9 @@ class FirebaseService {
           FirebaseFirestore.instance.runTransaction((transaction) async {
             DocumentReference documentReference = FirebaseFirestore.instance
                 .collection('users')
-                .doc(FirebaseAuth.instance.currentUser!.uid);
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .collection('user')
+                .doc('profile');
             DocumentSnapshot snapshot =
                 await transaction.get(documentReference);
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:eduha/common/navigate.dart';
+import 'package:eduha/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:eduha/ui/sign_up/join.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -70,19 +71,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) => isEmailVerified
-      ? Scaffold(
-          body: Center(
-            child: ElevatedButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                await GoogleSignIn().signOut();
-                if (!mounted) return;
-                Navigate.navigatorPushAndRemove(context, JoinView());
-              },
-              child: Text('Logout'),
-            ),
-          ),
-        )
+      ? BtnNavigation()
       : Scaffold(
           body: Container(
             padding: EdgeInsets.symmetric(horizontal: 15.w),

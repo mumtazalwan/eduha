@@ -1,3 +1,4 @@
+import 'package:eduha/ui/bottom_navigation/item/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -16,33 +17,22 @@ class _BtnNavigationState extends State<BtnNavigation> {
     setState(() {
       _selectedIndex = index;
     });
-    pageController.jumpToPage(index);
   }
+
+  final tabs = [
+    Container(
+        color: Colors.white),
+    Container(
+        color: Colors.white),
+    Container(
+        color: Colors.white),
+    ProfileView(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: pageController,
-        children: [
-          Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.red),
-          Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.amber),
-          Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.green),
-          Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              color: Colors.blueAccent)
-        ],
-      ),
+      body: tabs[_selectedIndex],
       bottomNavigationBar: Container(
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -66,8 +56,8 @@ class _BtnNavigationState extends State<BtnNavigation> {
                     FaIcon(FontAwesomeIcons.newspaper, color: Colors.black),
                 label: "News"),
             BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.calendarDays, color: Colors.grey),
-                activeIcon: FaIcon(FontAwesomeIcons.calendarDays, color: Colors.black),
+                icon: FaIcon(FontAwesomeIcons.user, color: Colors.grey),
+                activeIcon: FaIcon(FontAwesomeIcons.solidUser, color: Colors.black),
                 label: "Account"),
           ],
         ),

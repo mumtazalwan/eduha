@@ -143,7 +143,7 @@ class _JoinViewState extends State<JoinView> {
                                 width: 20.w,
                               ),
                               Text(
-                                'Join using Email',
+                                'Create account',
                                 style: theme.subtitle1,
                               ),
                             ],
