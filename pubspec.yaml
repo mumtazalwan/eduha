@@ -45,6 +45,7 @@ dependencies:
   smooth_page_indicator:
   lottie:
   flutter_profile_picture:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

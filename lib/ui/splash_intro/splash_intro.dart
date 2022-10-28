@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:eduha/common/navigate.dart';
+import 'package:eduha/ui/sign_up/join.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../onboarding/onboarding_pages.dart';
 
@@ -14,13 +16,23 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  int? _initScreen;
+
+  Future _init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _initScreen = prefs.getInt('screen');
+
+    Timer(Duration(seconds: 3), () {
+      _initScreen == 1
+          ? Navigate.navigatorPushAndRemove(context, JoinView())
+          : Navigate.navigatorPushAndRemove(context, OnBoarding());
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-
-    Timer(Duration(seconds: 3), () {
-      Navigate.navigatorReplacement(context, OnBoarding());
-    });
+    _init();
   }
 
   @override

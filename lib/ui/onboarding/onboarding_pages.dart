@@ -3,6 +3,7 @@ import 'package:eduha/ui/sign_up/join.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -168,7 +169,9 @@ class _OnBoardingState extends State<OnBoarding> {
                       primary: Colors.white,
                       backgroundColor: dotcolor,
                       minimumSize: Size.fromHeight(65.h)),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    await prefs.setInt('screen', 1);
                     Navigate.navigatorPush(context, JoinView());
                   },
                 ),
