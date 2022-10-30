@@ -47,7 +47,7 @@ class _JoinViewState extends State<JoinView> {
                               await FirebaseService().signInGoogle();
 
                           if (shouldNavigate) {
-                            Navigate.navigatorPush(context, Home());
+                            Navigate.navigatorPushAndRemove(context, Home());
                           }
                         },
                         child: Container(
