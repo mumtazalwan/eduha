@@ -3,14 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ItemCourseLearning extends StatefulWidget {
-  const ItemCourseLearning({Key? key}) : super(key: key);
+class ItemCourseLearning extends StatelessWidget {
+  final String title, desc, image;
 
-  @override
-  State<ItemCourseLearning> createState() => _ItemCourseLearningState();
-}
+  const ItemCourseLearning(
+      {Key? key, required this.title, required this.desc, required this.image})
+      : super(key: key);
 
-class _ItemCourseLearningState extends State<ItemCourseLearning> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,35 +24,38 @@ class _ItemCourseLearningState extends State<ItemCourseLearning> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 5.h,),
           Align(
             alignment: Alignment.center,
             child: SvgPicture.asset(
-              'assets/courses/func.svg',
+              'assets/courses/$image.svg',
               width: 170.w,
-              height: 170.h,
+              height: 150.h,
             ),
           ),
           SizedBox(
             height: 15.h,
           ),
           Text(
-            'Functions',
+            title,
             style: GoogleFonts.inter(
               fontSize: 22.sp,
               fontWeight: FontWeight.w700,
             ),
           ),
           SizedBox(
-            height: 5.h,
+            height: 12.h,
           ),
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            desc,
             style: GoogleFonts.inter(
               color: Colors.black,
               fontSize: 14.sp,
               fontWeight: FontWeight.w400,
               height: 1.2,
             ),
+            maxLines: 8,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
