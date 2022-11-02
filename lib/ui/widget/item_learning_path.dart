@@ -6,13 +6,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ItemLearningPath extends StatelessWidget {
-  const ItemLearningPath({Key? key}) : super(key: key);
+  final String title, image;
+  final int id;
+
+  const ItemLearningPath(
+      {Key? key, required this.title, required this.image, required this.id})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigate.navigatorPush(context, LearningPathView());
+        Navigate.navigatorPush(context, LearningPathView(id: id,));
       },
       child: Container(
         width: double.infinity,
@@ -40,7 +45,7 @@ class ItemLearningPath extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Math Foundation',
+                    title,
                     style: GoogleFonts.inter(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w700,
@@ -58,7 +63,7 @@ class ItemLearningPath extends StatelessWidget {
               ),
             ),
             SvgPicture.asset(
-              'assets/learning_path/math.svg',
+              'assets/learning_path/$image.svg',
               width: 100,
               height: 100,
             ),

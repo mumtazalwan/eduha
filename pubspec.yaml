@@ -48,6 +48,7 @@ dependencies:
   shared_preferences:
   flutter_svg:
   percent_indicator:
+  http:
 
 dev_dependencies:
   flutter_test:

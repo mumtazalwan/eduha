@@ -36,7 +36,7 @@ class _ProfileViewState extends State<ProfileView> {
               return Center(
                 child: Lottie.asset(
                   'assets/lottie/cubes_loader.json',
-                  height: 220.h,
+                  height: 200.h,
                 ),
               );
             } else {
