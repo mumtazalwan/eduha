@@ -94,6 +94,7 @@ class _LearningPathViewState extends State<LearningPathView> {
                               _courseLearningModel!.courseFoundation[index];
 
                           return ItemCourseLearning(
+                            id: model.materialId,
                             title: model.foundationName,
                             desc: model.description,
                             image: model.coursePath,
