@@ -1,6 +1,7 @@
 import 'package:eduha/common/navigate.dart';
 import 'package:eduha/common/validator.dart';
 import 'package:eduha/service/firebase_service.dart';
+import 'package:eduha/ui/forgot_password/forgot_password.dart';
 import 'package:eduha/ui/home.dart';
 import 'package:eduha/ui/sign_up/create_account.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,9 @@ class _LogInViewState extends State<LogInView> {
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigate.navigatorPush(context, ForgotPasswordView());
+                                    },
                                     child: Text(
                                       'Forgot password?',
                                       style: theme.bodyText2,

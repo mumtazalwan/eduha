@@ -1,6 +1,5 @@
 import 'package:eduha/common/theme_data.dart';
 import 'package:eduha/firebase_options.dart';
-import 'package:eduha/ui/bottom_navigation/bottom_navigation.dart';
 import 'package:eduha/ui/home.dart';
 import 'package:eduha/ui/splash_intro/splash_intro.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: child,
       ),
-      child: FirebaseAuth.instance.currentUser == null ? BtnNavigation() : Home(),
+      child: FirebaseAuth.instance.currentUser == null ? Splash() : Home(),
     );
   }
 }
