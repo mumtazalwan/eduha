@@ -165,46 +165,95 @@ class _ItemLessonState extends State<ItemLesson> {
                       ),
                     ],
                   )
-                : Padding(
+                : ListView(
+                    physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.only(left: 20.w),
-                    child: Container(
-                      width: 220.w,
-                      margin: EdgeInsets.only(right: 20.w),
-                      padding: EdgeInsets.all(15),
-                      color: Colors.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: 120.h,
-                            color: Colors.black,
-                          ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          Text(
-                            widget.cTitle,
-                            style: GoogleFonts.inter(
-                              fontSize: 16.sp,
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Container(
+                        width: 220.w,
+                        margin: EdgeInsets.only(right: 20.w),
+                        padding: EdgeInsets.all(15),
+                        color: Colors.white,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: 120.h,
+                              color: Colors.black,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          SizedBox(
-                            height: 5.h,
-                          ),
-                          Text(
-                            widget.cDesc,
-                            style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w500,
+                            SizedBox(
+                              height: 15.h,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+                            Text(
+                              widget.cTitle,
+                              style: GoogleFonts.inter(
+                                fontSize: 16.sp,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              widget.cDesc,
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w500,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                      Container(
+                        width: 220.w,
+                        margin: EdgeInsets.only(right: 20.w),
+                        padding: EdgeInsets.all(15),
+                        color: Colors.white,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: 120.h,
+                              color: Colors.blueAccent.withOpacity(0.5),
+                              child: Center(
+                                child: Icon(
+                                  Icons.lock_sharp,
+                                  color: Colors.black,
+                                  size: 18,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            Text(
+                              'Extra Practice',
+                              style: GoogleFonts.inter(
+                                fontSize: 16.sp,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              'Solve a problem to strengthen your skill',
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w500,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
           ),
         ],

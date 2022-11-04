@@ -41,6 +41,23 @@ class ApiService {
     }
   }
 
+  Future getDetailCourse(int id) async {
+    String endPoint = 'learning-path/foundation/material?submaterialId=$id';
+    final url = '$baseUrl$endPoint';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        return detailCourseModelFromJson(response.body);
+      } else {
+        throw 'Failed to fetch data from API';
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future getCourseLearning2() async {
     String endPoint = 'learning-path/foundation?idCourse=111';
     final url = '$baseUrl$endPoint';

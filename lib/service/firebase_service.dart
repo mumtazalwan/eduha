@@ -137,4 +137,32 @@ class FirebaseService {
       return false;
     }
   }
+
+  Future<bool> resetPassword(BuildContext context, String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          padding: const EdgeInsets.all(20),
+          content: Text(
+            'Password reset email sent',
+            style: GoogleFonts.inter(),
+          ),
+        ),
+      );
+      return true;
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          padding: const EdgeInsets.all(20),
+          content: Text(
+            e.message.toString(),
+            style: GoogleFonts.inter(),
+          ),
+        ),
+      );
+      return false;
+    }
+  }
 }
