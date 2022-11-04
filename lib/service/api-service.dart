@@ -1,4 +1,5 @@
 import 'package:eduha/model/course_learning.dart';
+import 'package:eduha/model/daily_quizz.dart';
 import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/model/learning_path.dart';
 import 'package:http/http.dart' as http;
@@ -40,15 +41,32 @@ class ApiService {
     }
   }
 
-  Future getDetailCourse(int id) async {
-    String endPoint = 'learning-path/foundation/material?submaterialId=$id';
+  Future getCourseLearning2() async {
+    String endPoint = 'learning-path/foundation?idCourse=111';
     final url = '$baseUrl$endPoint';
 
     try {
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
-        return detailCourseModelFromJson(response.body);
+        return courseLearningModelFromJson(response.body);
+      } else {
+        throw 'Failed to fetch data from API';
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future getDailyQuizz() async {
+    const endPoint = 'today-chalange';
+    final url = '$baseUrl$endPoint';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        return dailyQuizzModelFromJson(response.body);
       } else {
         throw 'Failed to fetch data from API';
       }

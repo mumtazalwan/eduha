@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: child,
       ),
-      child: FirebaseAuth.instance.currentUser == null ? Splash() : Home(),
+      child: FirebaseAuth.instance.currentUser == null ? BtnNavigation() : Home(),
     );
   }
 }

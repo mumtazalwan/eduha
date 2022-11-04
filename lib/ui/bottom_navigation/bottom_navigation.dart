@@ -1,4 +1,6 @@
 import 'package:eduha/ui/bottom_navigation/item/course.dart';
+import 'package:eduha/ui/bottom_navigation/item/daily_quizz.dart';
+import 'package:eduha/ui/bottom_navigation/item/home.dart';
 import 'package:eduha/ui/bottom_navigation/item/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,9 +24,9 @@ class _BtnNavigationState extends State<BtnNavigation> {
   }
 
   final tabs = [
-    Container(color: Colors.white),
+    const HomeDashboard(),
     const CourseView(),
-    Container(color: Colors.white),
+    const DailyQuizz(),
     const ProfileView(),
   ];
 
