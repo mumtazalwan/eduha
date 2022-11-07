@@ -1,22 +1,21 @@
+import 'package:eduha/common/navigate.dart';
 import 'package:eduha/model/detail_course.dart';
+import 'package:eduha/ui/lesson/lesson.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ItemLesson extends StatefulWidget {
-  int index;
-  final String materialName;
-  final String cTitle, cDesc, cImg;
+  int index, id;
+  List<CourseFoundation> course;
   List<Exercise> exercise;
 
   ItemLesson(
       {Key? key,
-      required this.materialName,
-      required this.cTitle,
-      required this.cDesc,
-      required this.cImg,
+      required this.course,
       required this.exercise,
-      this.index = 0})
+      this.index = 0,
+      required this.id})
       : super(key: key);
 
   @override
@@ -24,14 +23,14 @@ class ItemLesson extends StatefulWidget {
 }
 
 class _ItemLessonState extends State<ItemLesson> {
-  bool _visibility = false;
+  bool _isVisible = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     if (widget.exercise.isNotEmpty) {
-      _visibility = true;
+      _isVisible = true;
     }
   }
 
@@ -49,8 +48,8 @@ class _ItemLessonState extends State<ItemLesson> {
                 Container(
                   width: 30.w,
                   height: 30.h,
-                  decoration: BoxDecoration(
-                    color: Color(0XFFE5E5E5),
+                  decoration: const BoxDecoration(
+                    color: const Color(0XFFE5E5E5),
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -66,7 +65,7 @@ class _ItemLessonState extends State<ItemLesson> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: Text(
-                    widget.materialName,
+                    widget.course[widget.index].materialName,
                     style: GoogleFonts.inter(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
@@ -81,99 +80,111 @@ class _ItemLessonState extends State<ItemLesson> {
           ),
           SizedBox(
             height: 210.h,
-            child: _visibility
+            child: _isVisible
                 ? ListView(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.only(left: 20.w),
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Container(
-                        width: 220.w,
-                        margin: EdgeInsets.only(right: 20.w),
-                        padding: EdgeInsets.all(15),
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 120.h,
-                              color: Colors.black,
+                      InkWell(
+                        onTap: () {
+                          Navigate.navigatorPush(
+                            context,
+                            LessonView(
+                              id: widget.course[widget.index].id,
                             ),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            Text(
-                              widget.cTitle,
-                              style: GoogleFonts.inter(
-                                fontSize: 16.sp,
+                          );
+                        },
+                        child: Container(
+                          width: 220.w,
+                          margin: EdgeInsets.only(right: 20.w),
+                          padding: const EdgeInsets.all(15),
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 120.h,
+                                color: Colors.black,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              widget.cDesc,
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
+                              SizedBox(
+                                height: 15.h,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+                              Text(
+                                widget.course[widget.index].mainTitle,
+                                style: GoogleFonts.inter(
+                                  fontSize: 16.sp,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Text(
+                                widget.course[widget.index].mainDescription,
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 220.w,
-                        margin: EdgeInsets.only(right: 20.w),
-                        padding: EdgeInsets.all(15),
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 120.h,
-                              color: Colors.black,
-                            ),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            Text(
-                              widget.exercise[widget.index].exerciseTitle,
-                              style: GoogleFonts.inter(
-                                fontSize: 16.sp,
+                      InkWell(
+                        child: Container(
+                          width: 220.w,
+                          margin: EdgeInsets.only(right: 20.w),
+                          padding: const EdgeInsets.all(15),
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 120.h,
+                                color: Colors.black,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              widget.exercise[widget.index].exerciseDesc,
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
+                              SizedBox(
+                                height: 15.h,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+                              Text(
+                                widget.exercise[widget.index].exerciseTitle,
+                                style: GoogleFonts.inter(
+                                  fontSize: 16.sp,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Text(
+                                widget.exercise[widget.index].exerciseDesc,
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   )
                 : ListView(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.only(left: 20.w),
                     scrollDirection: Axis.horizontal,
                     children: [
                       Container(
                         width: 220.w,
                         margin: EdgeInsets.only(right: 20.w),
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         color: Colors.white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,7 +198,7 @@ class _ItemLessonState extends State<ItemLesson> {
                               height: 15.h,
                             ),
                             Text(
-                              widget.cTitle,
+                              widget.course[widget.index].mainTitle,
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
                               ),
@@ -198,7 +209,7 @@ class _ItemLessonState extends State<ItemLesson> {
                               height: 5.h,
                             ),
                             Text(
-                              widget.cDesc,
+                              widget.course[widget.index].mainDescription,
                               style: GoogleFonts.inter(
                                 fontWeight: FontWeight.w500,
                               ),
@@ -211,7 +222,7 @@ class _ItemLessonState extends State<ItemLesson> {
                       Container(
                         width: 220.w,
                         margin: EdgeInsets.only(right: 20.w),
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         color: Colors.white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,7 +231,7 @@ class _ItemLessonState extends State<ItemLesson> {
                               width: double.infinity,
                               height: 120.h,
                               color: Colors.blueAccent.withOpacity(0.5),
-                              child: Center(
+                              child: const Center(
                                 child: Icon(
                                   Icons.lock_sharp,
                                   color: Colors.black,

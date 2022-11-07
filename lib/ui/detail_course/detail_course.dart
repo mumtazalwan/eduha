@@ -129,15 +129,10 @@ class _DetailCourseViewState extends State<DetailCourseView> {
                               itemCount:
                                   _detailCourseModel?.courseFoundation.length,
                               itemBuilder: (_, index) {
-                                var course =
-                                    _detailCourseModel!.courseFoundation[index];
-
                                 return ItemLesson(
+                                  id: widget.id,
                                   index: index,
-                                  materialName: course.materialName,
-                                  cTitle: course.mainTitle,
-                                  cDesc: course.description,
-                                  cImg: course.imgPath,
+                                  course: _detailCourseModel!.courseFoundation,
                                   exercise: _detailCourseModel!.exercise,
                                 );
                               },

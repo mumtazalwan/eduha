@@ -80,54 +80,70 @@ class Exercise {
   Exercise({
     required this.id,
     required this.question,
-    required this.selection1,
-    required this.selection2,
-    required this.selection3,
-    required this.selection4,
-    required this.correctAnswear,
+    required this.selection,
     required this.idExercise,
     required this.exerciseImg,
     required this.exerciseTitle,
     required this.exerciseDesc,
+    required this.foExe,
   });
 
   int id;
   String question;
-  String selection1;
-  String selection2;
-  String selection3;
-  String selection4;
-  String correctAnswear;
+  int selection;
   int idExercise;
   String exerciseImg;
   String exerciseTitle;
   String exerciseDesc;
+  List<FoExe> foExe;
 
   factory Exercise.fromJson(Map<String, dynamic> json) => Exercise(
     id: json["id"],
     question: json["question"],
-    selection1: json["selection1"],
-    selection2: json["selection2"],
-    selection3: json["selection3"],
-    selection4: json["selection4"],
-    correctAnswear: json["correct_answear"],
+    selection: json["selection"],
     idExercise: json["idExercise"],
     exerciseImg: json["exercise_img"],
     exerciseTitle: json["exercise_title"],
     exerciseDesc: json["exercise_desc"],
+    foExe: List<FoExe>.from(json["fo_exe"].map((x) => FoExe.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "question": question,
-    "selection1": selection1,
-    "selection2": selection2,
-    "selection3": selection3,
-    "selection4": selection4,
-    "correct_answear": correctAnswear,
+    "selection": selection,
     "idExercise": idExercise,
     "exercise_img": exerciseImg,
     "exercise_title": exerciseTitle,
     "exercise_desc": exerciseDesc,
+    "fo_exe": List<dynamic>.from(foExe.map((x) => x.toJson())),
+  };
+}
+
+class FoExe {
+  FoExe({
+    required this.id,
+    required this.text,
+    required this.isCorrect,
+    required this.getSelection,
+  });
+
+  int id;
+  String text;
+  int isCorrect;
+  int getSelection;
+
+  factory FoExe.fromJson(Map<String, dynamic> json) => FoExe(
+    id: json["id"],
+    text: json["Text"],
+    isCorrect: json["isCorrect"],
+    getSelection: json["get_selection"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "Text": text,
+    "isCorrect": isCorrect,
+    "get_selection": getSelection,
   };
 }
