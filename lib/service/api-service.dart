@@ -2,6 +2,7 @@ import 'package:eduha/model/course_learning.dart';
 import 'package:eduha/model/daily_quizz.dart';
 import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/model/learning_path.dart';
+import 'package:eduha/model/material.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -50,6 +51,23 @@ class ApiService {
 
       if (response.statusCode == 200) {
         return detailCourseModelFromJson(response.body);
+      } else {
+        throw 'Failed to fetch data from API';
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future getMaterial(int id) async {
+    String endPoint = 'learning-path/foundation/material/detail?materialsCode=$id';
+    final url = '$baseUrl$endPoint';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        return materialModelFromJson(response.body);
       } else {
         throw 'Failed to fetch data from API';
       }
