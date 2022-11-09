@@ -85,7 +85,7 @@ class _CourseViewState extends State<CourseView> {
                               padding: EdgeInsets.only(left: 20.w, right: 5.w),
                               scrollDirection: Axis.horizontal,
                               itemCount: 4,
-                              itemBuilder: (_, index) => ItemCourse(),
+                              itemBuilder: (_, index) => const ItemCourse(),
                             ),
                           ),
                           SizedBox(
@@ -110,7 +110,7 @@ class _CourseViewState extends State<CourseView> {
                               padding: EdgeInsets.only(left: 20.w, right: 5.w),
                               scrollDirection: Axis.horizontal,
                               itemCount: 4,
-                              itemBuilder: (_, index) => ItemCourse(),
+                              itemBuilder: (_, index) => const ItemCourse(),
                             ),
                           ),
                         ],
@@ -135,7 +135,7 @@ class _CourseViewState extends State<CourseView> {
                             ),
                             ListView.builder(
                               shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount:
                                   _learningPathModel?.learningPath.length,
                               itemBuilder: (_, index) {

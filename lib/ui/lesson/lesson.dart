@@ -95,33 +95,102 @@ class _LessonViewState extends State<LessonView> {
         ],
       ),
       body: _isLoaded
-          ? PageView.builder(
-              controller: _controller,
-              scrollDirection: Axis.vertical,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _model?.courseFoundation.length,
-              itemBuilder: (_, index) {
-                var model = _model!.courseFoundation[index];
+          ? _indicatorProgress == 0
+              ? PageView.builder(
+                  controller: _controller,
+                  scrollDirection: Axis.vertical,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: _model?.courseFoundation.length,
+                  itemBuilder: (_, index) {
+                    var model = _model!.courseFoundation[index];
 
-                return Container(
+                    return SingleChildScrollView(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 20.h),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              model.material,
+                              style: theme.headline1,
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text(
+                              model.explanation,
+                              style: theme.bodyText1,
+                            ),
+                            SizedBox(
+                              height: 25.h,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.black,
+                                minimumSize: Size(50.w, 40.h),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+                              onPressed: (index ==
+                                      _model!.courseFoundation.length - 1)
+                                  ? () {
+                                      _indicatorProgress == 0
+                                          ? setState(() {
+                                              _indicatorProgress += 1;
+                                              _progress += 1 /
+                                                  _model!
+                                                      .courseFoundation.length
+                                                      .toDouble();
+                                            })
+                                          : Navigator.pop(context);
+                                    }
+                                  : () {
+                                      setState(() {
+                                        _progress += 1 /
+                                            _model!.courseFoundation.length
+                                                .toDouble();
+                                      });
+                                      _controller.nextPage(
+                                        duration:
+                                            const Duration(milliseconds: 400),
+                                        curve: Curves.easeInOut,
+                                      );
+                                    },
+                              child: const Text('Continue'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                )
+              : Container(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        model.material,
-                        style: theme.headline1,
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Congratulation you have been finish this session',
+                          style: theme.headline2,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       SizedBox(
-                        height: 10.h,
+                        height: 20.h,
                       ),
-                      Text(
-                        model.explanation,
-                        style: theme.bodyText1,
+                      Align(
+                        alignment: Alignment.center,
+                        child: Lottie.asset('assets/lottie/finish.json',
+                            height: 280.h),
                       ),
                       SizedBox(
-                        height: 25.h,
+                        height: 20.h,
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -131,42 +200,14 @@ class _LessonViewState extends State<LessonView> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        onPressed: (index ==
-                                _model!.courseFoundation.length - 1)
-                            ? () {
-                                _indicatorProgress == 0
-                                    ? setState(() {
-                                        _indicatorProgress += 1;
-                                        _progress += 1 /
-                                            _model!.courseFoundation.length
-                                                .toDouble();
-                                      })
-                                    : Navigator.pop(context);
-                              }
-                            : () {
-                                setState(() {
-                                  _progress += 1 /
-                                      _model!.courseFoundation.length
-                                          .toDouble();
-                                });
-                                _controller.nextPage(
-                                  duration: const Duration(milliseconds: 400),
-                                  curve: Curves.easeInOut,
-                                );
-                              },
-                        child: _indicatorProgress == 0
-                            ? Text(
-                                (index < _model!.courseFoundation.length - 1)
-                                    ? 'Continue'
-                                    : 'Finish',
-                              )
-                            : const Text('Back'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Finish'),
                       ),
                     ],
                   ),
-                );
-              },
-            )
+                )
           : Center(
               child: Lottie.asset('assets/lottie/cubes_loader.json',
                   height: 200.h),

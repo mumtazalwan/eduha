@@ -1,5 +1,6 @@
 import 'package:eduha/common/navigate.dart';
 import 'package:eduha/model/detail_course.dart';
+import 'package:eduha/ui/exercise/exercise.dart';
 import 'package:eduha/ui/lesson/lesson.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,7 +50,7 @@ class _ItemLessonState extends State<ItemLesson> {
                   width: 30.w,
                   height: 30.h,
                   decoration: const BoxDecoration(
-                    color: const Color(0XFFE5E5E5),
+                    color: Color(0XFFE5E5E5),
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -135,6 +136,14 @@ class _ItemLessonState extends State<ItemLesson> {
                         ),
                       ),
                       InkWell(
+                        onTap: () {
+                          Navigate.navigatorPush(
+                            context,
+                            ExerciseView(
+                              index: widget.index,
+                            ),
+                          );
+                        },
                         child: Container(
                           width: 220.w,
                           margin: EdgeInsets.only(right: 20.w),

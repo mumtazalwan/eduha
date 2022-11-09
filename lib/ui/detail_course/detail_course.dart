@@ -108,7 +108,7 @@ class _DetailCourseViewState extends State<DetailCourseView> {
                                     ),
                                   ),
                                   onPressed: () {},
-                                  child: Text('CONTINUE COURSE'),
+                                  child: const Text('CONTINUE COURSE'),
                                 ),
                                 SizedBox(
                                   height: 20.h,
@@ -124,7 +124,7 @@ class _DetailCourseViewState extends State<DetailCourseView> {
                             padding: EdgeInsets.only(top: 30.h, bottom: 10.h),
                             color: ColorValues.grey,
                             child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount:
                                   _detailCourseModel?.courseFoundation.length,
