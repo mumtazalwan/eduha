@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseService {
-  Future<bool> signUpEmail(String email, String password, String firstName,
-      String lastName, String birthday) async {
+  Future<bool> signUpEmail(BuildContext context, String email, String password,
+      String firstName, String lastName, String birthday) async {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -13,7 +15,9 @@ class FirebaseService {
         FirebaseFirestore.instance.runTransaction((transaction) async {
           DocumentReference documentReference = FirebaseFirestore.instance
               .collection('users')
-              .doc(FirebaseAuth.instance.currentUser!.uid);
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('user')
+              .doc('profile');
           DocumentSnapshot snapshot = await transaction.get(documentReference);
 
           if (!snapshot.exists) {
@@ -41,11 +45,15 @@ class FirebaseService {
       });
       return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account was already');
-      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          padding: const EdgeInsets.all(20),
+          content: Text(
+            e.message.toString(),
+            style: GoogleFonts.inter(),
+          ),
+        ),
+      );
       return false;
     } catch (e) {
       print(e.toString());
@@ -53,13 +61,23 @@ class FirebaseService {
     }
   }
 
-  Future<bool> signInEmail(String email, String password) async {
+  Future<bool> signInEmail(
+      BuildContext context, String email, String password) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       return true;
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          padding: const EdgeInsets.all(20),
+          content: Text(
+            e.message.toString(),
+            style: GoogleFonts.inter(),
+          ),
+        ),
+      );
       return false;
     }
   }
@@ -86,7 +104,9 @@ class FirebaseService {
           FirebaseFirestore.instance.runTransaction((transaction) async {
             DocumentReference documentReference = FirebaseFirestore.instance
                 .collection('users')
-                .doc(FirebaseAuth.instance.currentUser!.uid);
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .collection('user')
+                .doc('profile');
             DocumentSnapshot snapshot =
                 await transaction.get(documentReference);
 
@@ -114,6 +134,34 @@ class FirebaseService {
       }
       return true;
     } else {
+      return false;
+    }
+  }
+
+  Future<bool> resetPassword(BuildContext context, String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          padding: const EdgeInsets.all(20),
+          content: Text(
+            'Password reset email sent',
+            style: GoogleFonts.inter(),
+          ),
+        ),
+      );
+      return true;
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          padding: const EdgeInsets.all(20),
+          content: Text(
+            e.message.toString(),
+            style: GoogleFonts.inter(),
+          ),
+        ),
+      );
       return false;
     }
   }

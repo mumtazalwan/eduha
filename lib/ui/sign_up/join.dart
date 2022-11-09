@@ -1,6 +1,7 @@
 import 'package:eduha/common/navigate.dart';
 import 'package:eduha/service/firebase_service.dart';
 import 'package:eduha/ui/home.dart';
+import 'package:eduha/ui/log_in/log_in.dart';
 import 'package:eduha/ui/sign_up/create_account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,7 @@ class _JoinViewState extends State<JoinView> {
                               await FirebaseService().signInGoogle();
 
                           if (shouldNavigate) {
-                            Navigate.navigatorPush(context, Home());
+                            Navigate.navigatorPushAndRemove(context, Home());
                           }
                         },
                         child: Container(
@@ -142,7 +143,7 @@ class _JoinViewState extends State<JoinView> {
                                 width: 20.w,
                               ),
                               Text(
-                                'Join using Email',
+                                'Create account',
                                 style: theme.subtitle1,
                               ),
                             ],
@@ -164,12 +165,11 @@ class _JoinViewState extends State<JoinView> {
                       child: Center(
                         child: GestureDetector(
                           onTap: () {
-                            Navigate.navigatorPush(
-                                context, CreateAccountView());
+                            Navigate.navigatorPush(context, LogInView());
                           },
                           child: RichText(
                             text: TextSpan(
-                              text: 'No account yet ? ',
+                              text: 'Existing user? ',
                               style: GoogleFonts.inter(
                                 color: Colors.black,
                                 fontSize: 16.sp,
@@ -177,7 +177,7 @@ class _JoinViewState extends State<JoinView> {
                               ),
                               children: [
                                 TextSpan(
-                                  text: 'Sign up',
+                                  text: 'Log in',
                                   style: GoogleFonts.inter(
                                     color: Colors.black,
                                     fontSize: 16.sp,

@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "879059285853-vtqmub8bb0ocqnfk3rv4v2pdk1f8d97a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eduha",
+            "certificate_hash": "f9227d9bfdf8e011f6fc660af6495796be1b26cf"
+          }
+        },
+        {
           "client_id": "879059285853-nkts2ih282o5segd94abl4feg3ot7onr.apps.googleusercontent.com",
           "client_type": 3
         }
