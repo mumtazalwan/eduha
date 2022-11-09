@@ -2,6 +2,7 @@
 //
 //     final detailCourseModel = detailCourseModelFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 DetailCourseModel detailCourseModelFromJson(String str) => DetailCourseModel.fromJson(json.decode(str));
@@ -85,6 +86,7 @@ class Exercise {
     required this.exerciseImg,
     required this.exerciseTitle,
     required this.exerciseDesc,
+    required this.correctAnswear,
     required this.foExe,
   });
 
@@ -95,6 +97,7 @@ class Exercise {
   String exerciseImg;
   String exerciseTitle;
   String exerciseDesc;
+  int correctAnswear;
   List<FoExe> foExe;
 
   factory Exercise.fromJson(Map<String, dynamic> json) => Exercise(
@@ -105,6 +108,7 @@ class Exercise {
     exerciseImg: json["exercise_img"],
     exerciseTitle: json["exercise_title"],
     exerciseDesc: json["exercise_desc"],
+    correctAnswear: json["correct_answear"],
     foExe: List<FoExe>.from(json["fo_exe"].map((x) => FoExe.fromJson(x))),
   );
 
@@ -116,6 +120,7 @@ class Exercise {
     "exercise_img": exerciseImg,
     "exercise_title": exerciseTitle,
     "exercise_desc": exerciseDesc,
+    "correct_answear": correctAnswear,
     "fo_exe": List<dynamic>.from(foExe.map((x) => x.toJson())),
   };
 }

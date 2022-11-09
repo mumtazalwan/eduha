@@ -86,7 +86,7 @@ class _LearningPathViewState extends State<LearningPathView> {
                       ),
                       ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount:
                             _courseLearningModel?.courseFoundation.length,
                         itemBuilder: (_, index) {
