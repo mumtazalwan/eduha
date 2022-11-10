@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -15,9 +14,7 @@ class FirebaseService {
         FirebaseFirestore.instance.runTransaction((transaction) async {
           DocumentReference documentReference = FirebaseFirestore.instance
               .collection('users')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('user')
-              .doc('profile');
+              .doc(FirebaseAuth.instance.currentUser!.uid);
           DocumentSnapshot snapshot = await transaction.get(documentReference);
 
           if (!snapshot.exists) {
@@ -104,9 +101,7 @@ class FirebaseService {
           FirebaseFirestore.instance.runTransaction((transaction) async {
             DocumentReference documentReference = FirebaseFirestore.instance
                 .collection('users')
-                .doc(FirebaseAuth.instance.currentUser!.uid)
-                .collection('user')
-                .doc('profile');
+                .doc(FirebaseAuth.instance.currentUser!.uid);
             DocumentSnapshot snapshot =
                 await transaction.get(documentReference);
 

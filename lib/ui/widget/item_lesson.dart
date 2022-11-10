@@ -5,6 +5,9 @@ import 'package:eduha/ui/lesson/lesson.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+
+import '../../common/color_values.dart';
 
 class ItemLesson extends StatefulWidget {
   int index, id;
@@ -63,7 +66,7 @@ class _ItemLessonState extends State<ItemLesson> {
                 SizedBox(
                   width: 15.w,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: Text(
                     widget.course[widget.index].materialName,
@@ -80,7 +83,7 @@ class _ItemLessonState extends State<ItemLesson> {
             height: 20.h,
           ),
           SizedBox(
-            height: 210.h,
+            height: 225.h,
             child: _isVisible
                 ? ListView(
                     physics: const BouncingScrollPhysics(),
@@ -97,7 +100,7 @@ class _ItemLessonState extends State<ItemLesson> {
                           );
                         },
                         child: Container(
-                          width: 220.w,
+                          width: 235.w,
                           margin: EdgeInsets.only(right: 20.w),
                           padding: const EdgeInsets.all(15),
                           color: Colors.white,
@@ -131,6 +134,13 @@ class _ItemLessonState extends State<ItemLesson> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
+                              LinearPercentIndicator(
+                                padding: const EdgeInsets.all(0),
+                                percent: 0.5,
+                                barRadius: const Radius.circular(1),
+                                backgroundColor: ColorValues.green.withOpacity(0.2),
+                                progressColor: ColorValues.green,
+                              ),
                             ],
                           ),
                         ),
@@ -145,7 +155,7 @@ class _ItemLessonState extends State<ItemLesson> {
                           );
                         },
                         child: Container(
-                          width: 220.w,
+                          width: 235.w,
                           margin: EdgeInsets.only(right: 20.w),
                           padding: const EdgeInsets.all(15),
                           color: Colors.white,
@@ -179,6 +189,16 @@ class _ItemLessonState extends State<ItemLesson> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              LinearPercentIndicator(
+                                padding: const EdgeInsets.all(0),
+                                percent: 0.5,
+                                barRadius: const Radius.circular(2),
+                                backgroundColor: ColorValues.green.withOpacity(0.2),
+                                progressColor: ColorValues.green,
+                              ),
                             ],
                           ),
                         ),
@@ -190,46 +210,63 @@ class _ItemLessonState extends State<ItemLesson> {
                     padding: EdgeInsets.only(left: 20.w),
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Container(
-                        width: 220.w,
-                        margin: EdgeInsets.only(right: 20.w),
-                        padding: const EdgeInsets.all(15),
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 120.h,
-                              color: Colors.black,
+                      InkWell(
+                        onTap: () {
+                          Navigate.navigatorPush(
+                            context,
+                            LessonView(
+                              id: widget.course[widget.index].id,
                             ),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            Text(
-                              widget.course[widget.index].mainTitle,
-                              style: GoogleFonts.inter(
-                                fontSize: 16.sp,
+                          );
+                        },
+                        child: Container(
+                          width: 235.w,
+                          margin: EdgeInsets.only(right: 20.w),
+                          padding: const EdgeInsets.all(15),
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 120.h,
+                                color: Colors.black,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              widget.course[widget.index].mainDescription,
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
+                              SizedBox(
+                                height: 15.h,
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+                              Text(
+                                widget.course[widget.index].mainTitle,
+                                style: GoogleFonts.inter(
+                                  fontSize: 16.sp,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Text(
+                                widget.course[widget.index].mainDescription,
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              LinearPercentIndicator(
+                                padding: const EdgeInsets.all(0),
+                                percent: 0.5,
+                                barRadius: const Radius.circular(1),
+                                backgroundColor: ColorValues.green.withOpacity(0.2),
+                                progressColor: ColorValues.green,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Container(
-                        width: 220.w,
+                        width: 235.w,
                         margin: EdgeInsets.only(right: 20.w),
                         padding: const EdgeInsets.all(15),
                         color: Colors.white,
