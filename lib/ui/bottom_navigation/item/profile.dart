@@ -25,13 +25,12 @@ class _ProfileViewState extends State<ProfileView> {
 
     return Scaffold(
       body: SafeArea(
-        child: StreamBuilder(
+        child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
           stream: FirebaseFirestore.instance
               .collection('users')
               .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('user')
               .snapshots(),
-          builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+          builder: (_, snapshot) {
             if (!snapshot.hasData) {
               return Center(
                 child: Lottie.asset(
@@ -40,71 +39,66 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               );
             } else {
+              var e = snapshot.data!;
               return Container(
                 margin: EdgeInsets.only(top: 15.h),
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: snapshot.data!.docs
-                      .map(
-                        (e) => Column(
+                  children: [
+                    Text(
+                      'Profile',
+                      style: GoogleFonts.inter(
+                          fontSize: 24.sp, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    Row(
+                      children: [
+                        ProfilePicture(
+                          name: e['full-name'],
+                          radius: 40.h,
+                          fontsize: 20.sp,
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Profile',
-                              style: GoogleFonts.inter(
-                                  fontSize: 24.sp, fontWeight: FontWeight.w600),
+                              e['full-name'],
+                              style: theme.subtitle1,
                             ),
                             SizedBox(
-                              height: 40.h,
+                              height: 2.h,
                             ),
-                            Row(
-                              children: [
-                                ProfilePicture(
-                                  name: e['full-name'],
-                                  radius: 40.h,
-                                  fontsize: 20.sp,
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      e['full-name'],
-                                      style: theme.subtitle1,
-                                    ),
-                                    SizedBox(
-                                      height: 2.h,
-                                    ),
-                                    Text(
-                                      e['email'],
-                                      style: theme.bodyText1,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 50.h,
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: ColorValues.red,
-                              ),
-                              onPressed: () async {
-                                await FirebaseAuth.instance.signOut();
-                                await GoogleSignIn().signOut();
-                                if (!mounted) return;
-                                Navigate.navigatorPushAndRemove(context, const JoinView());
-                              },
-                              child: const Text('Logout'),
+                            Text(
+                              e['email'],
+                              style: theme.bodyText1,
                             ),
                           ],
                         ),
-                      )
-                      .toList(),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: ColorValues.red,
+                      ),
+                      onPressed: () async {
+                        await FirebaseAuth.instance.signOut();
+                        await GoogleSignIn().signOut();
+                        if (!mounted) return;
+                        Navigate.navigatorPushAndRemove(
+                            context, const JoinView());
+                      },
+                      child: const Text('Logout'),
+                    ),
+                  ],
                 ),
               );
             }

@@ -28,7 +28,7 @@ class _DetailCourseViewState extends State<DetailCourseView> {
   DetailCourseModel? _detailCourseModel;
   bool _isLoaded = false;
 
-  Future getApi() async {
+  Future _getApi() async {
     _detailCourseModel = await ApiService().getDetailCourse(widget.id);
     if (mounted) {
       setState(() {
@@ -41,7 +41,7 @@ class _DetailCourseViewState extends State<DetailCourseView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getApi();
+    _getApi();
   }
 
   @override
