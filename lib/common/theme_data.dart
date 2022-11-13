@@ -68,8 +68,8 @@ class AppThemeData {
         ),
         headline5: GoogleFonts.inter(
           color: Colors.black,
-          fontSize: 10.sp,
-          fontWeight: FontWeight.bold,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
         ),
         subtitle1: GoogleFonts.inter(
           color: Colors.black,

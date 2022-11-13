@@ -2,6 +2,7 @@ import 'package:eduha/common/color_values.dart';
 import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/model/material.dart';
 import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,9 +10,16 @@ import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class LessonView extends StatefulWidget {
+  final String learningPath, course, lesson;
   final int id;
 
-  const LessonView({Key? key, required this.id}) : super(key: key);
+  const LessonView(
+      {Key? key,
+      required this.id,
+      required this.learningPath,
+      required this.course,
+      required this.lesson})
+      : super(key: key);
 
   @override
   State<LessonView> createState() => _LessonViewState();
@@ -136,23 +144,43 @@ class _LessonViewState extends State<LessonView> {
                               ),
                               onPressed: (index ==
                                       _model!.courseFoundation.length - 1)
-                                  ? () {
-                                      _indicatorProgress == 0
-                                          ? setState(() {
-                                              _indicatorProgress += 1;
-                                              _progress += 1 /
-                                                  _model!
-                                                      .courseFoundation.length
-                                                      .toDouble();
-                                            })
-                                          : Navigator.pop(context);
+                                  ? () async {
+                                      if (_indicatorProgress == 0) {
+                                        setState(() {
+                                          _indicatorProgress += 1;
+                                          _progress += 1 /
+                                              _model!.courseFoundation.length
+                                                  .toDouble();
+                                        });
+
+                                        await FirebaseService()
+                                            .saveProgressCourse(
+                                            widget.learningPath,
+                                            widget.course,
+                                            'course',
+                                            widget.lesson,
+                                            index,
+                                            _progress);
+                                      } else {
+                                        Navigator.pop(context);
+                                      }
                                     }
-                                  : () {
+                                  : () async {
                                       setState(() {
                                         _progress += 1 /
                                             _model!.courseFoundation.length
                                                 .toDouble();
                                       });
+
+                                      await FirebaseService()
+                                          .saveProgressCourse(
+                                              widget.learningPath,
+                                              widget.course,
+                                              'course',
+                                              widget.lesson,
+                                              index,
+                                              _progress);
+
                                       _controller.nextPage(
                                         duration:
                                             const Duration(milliseconds: 400),

@@ -160,4 +160,102 @@ class FirebaseService {
       return false;
     }
   }
+
+  Future initLearningPath(String learningPath, String course) async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      DocumentReference documentReference = FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection(learningPath)
+          .doc(course);
+
+      FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot snapshot = await transaction.get(documentReference);
+
+        if (!snapshot.exists) {
+          documentReference.set({
+            'index': 0,
+          });
+        }
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future saveProgressCourse(String learningPath, String course, String type,
+      String lesson, int index, double progress) async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      DocumentReference learningPathDocument = FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection(learningPath)
+          .doc(course);
+
+      DocumentReference courseDocument = FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection(learningPath)
+          .doc(course)
+          .collection(type)
+          .doc(lesson);
+
+      FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot course = await transaction.get(courseDocument);
+
+        if (!course.exists) {
+          courseDocument.set({
+            'index': index,
+            'progress': progress,
+          });
+        } else {
+          if (course['progress'] < 0.999) {
+            transaction.update(courseDocument, {
+              'progress': progress,
+              'index': index,
+            });
+          }
+        }
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future saveProgressExercise(String learningPath, String course, String type,
+      String lesson, double progress) async {
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      DocumentReference courseDocument = FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection(learningPath)
+          .doc(course)
+          .collection(type)
+          .doc(lesson);
+
+      FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot course = await transaction.get(courseDocument);
+
+        if (!course.exists) {
+          courseDocument.set({
+            'progress': progress,
+          });
+        } else {
+          if (course['progress'] < 0.999) {
+            transaction.update(courseDocument, {
+              'progress': progress,
+            });
+          }
+        }
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

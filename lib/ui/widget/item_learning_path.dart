@@ -17,7 +17,13 @@ class ItemLearningPath extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigate.navigatorPush(context, LearningPathView(id: id,));
+        Navigate.navigatorPush(
+          context,
+          LearningPathView(
+            id: id,
+            titleLearningPath: title,
+          ),
+        );
       },
       child: Container(
         width: double.infinity,
