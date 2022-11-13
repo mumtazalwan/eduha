@@ -7,10 +7,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../service/firebase_service.dart';
+
 class ExerciseView extends StatefulWidget {
+  final String learningPath, course, lesson;
   final int index;
 
-  const ExerciseView({Key? key, required this.index}) : super(key: key);
+  const ExerciseView(
+      {Key? key,
+      required this.index,
+      required this.learningPath,
+      required this.course,
+      required this.lesson})
+      : super(key: key);
 
   @override
   State<ExerciseView> createState() => _ExerciseViewState();
@@ -161,13 +170,19 @@ class _ExerciseViewState extends State<ExerciseView> {
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 int correctAnswer = _model!
                                     .exercise[widget.index].correctAnswear;
                                 if (_isTrue == correctAnswer) {
                                   setState(() {
                                     _progress = 1;
                                   });
+                                  await FirebaseService().saveProgressExercise(
+                                      widget.learningPath,
+                                      widget.course,
+                                      'exercise',
+                                      widget.lesson,
+                                      _progress);
                                 } else if (_isTrue == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(

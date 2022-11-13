@@ -1,4 +1,5 @@
 import 'package:eduha/common/color_values.dart';
+import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/model/learning_path.dart';
 import 'package:eduha/service/api-service.dart';
 import 'package:eduha/ui/widget/item_learning_path.dart';
@@ -21,10 +22,14 @@ class CourseView extends StatefulWidget {
 
 class _CourseViewState extends State<CourseView> {
   LearningPathModel? _learningPathModel;
+  DetailCourseModel? _detailCourseModel;
+  DetailCourseModel? _detailCourseModel2;
   bool _isLoaded = false;
 
-  Future getApi() async {
+  Future _getApi() async {
     _learningPathModel = await ApiService().getLearningPath();
+    _detailCourseModel = await ApiService().getDetailCourse(1111);
+    _detailCourseModel2 = await ApiService().getDetailCourse(1112);
     if (mounted) {
       setState(() {
         _isLoaded = true;
@@ -36,11 +41,13 @@ class _CourseViewState extends State<CourseView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getApi();
+    _getApi();
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: SafeArea(
         child: _isLoaded
@@ -85,7 +92,14 @@ class _CourseViewState extends State<CourseView> {
                               padding: EdgeInsets.only(left: 20.w, right: 5.w),
                               scrollDirection: Axis.horizontal,
                               itemCount: 4,
-                              itemBuilder: (_, index) => const ItemCourse(),
+                              itemBuilder: (_, index) {
+                                var model =
+                                    _detailCourseModel!.courseFoundation[index];
+
+                                return ItemCourse(
+                                  title: model.mainTitle,
+                                );
+                              },
                             ),
                           ),
                           SizedBox(
@@ -95,10 +109,7 @@ class _CourseViewState extends State<CourseView> {
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: Text(
                               'Recommended for beginners',
-                              style: GoogleFonts.inter(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: theme.headline5,
                             ),
                           ),
                           SizedBox(
@@ -110,7 +121,15 @@ class _CourseViewState extends State<CourseView> {
                               padding: EdgeInsets.only(left: 20.w, right: 5.w),
                               scrollDirection: Axis.horizontal,
                               itemCount: 4,
-                              itemBuilder: (_, index) => const ItemCourse(),
+                              itemBuilder: (_, index) {
+                                var model = _detailCourseModel2!
+                                    .courseFoundation[index];
+
+                                return ItemCourse(
+                                  title: model.mainTitle,
+                                  isOne: false,
+                                );
+                              },
                             ),
                           ),
                         ],
@@ -125,10 +144,7 @@ class _CourseViewState extends State<CourseView> {
                           children: [
                             Text(
                               'Popular Leaning Paths',
-                              style: GoogleFonts.inter(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: theme.headline5,
                             ),
                             SizedBox(
                               height: 20.h,
