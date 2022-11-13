@@ -1,4 +1,5 @@
 import 'package:eduha/model/course_learning.dart';
+import 'package:eduha/ui/detail_course/detail_course.dart';
 import 'package:eduha/ui/widget/item_getStarted_home.dart';
 import 'package:eduha/ui/widget/item_recommended_home.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +113,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                 children: [
                                   Text("Menyelesaikan pre-algebra",
                                       style: GoogleFonts.inter(
-                                          fontSize: 12,
+                                          fontSize: 14.sp,
                                           fontWeight: FontWeight.w400)),
                                   Icon(Icons.check, color: Colors.green)
                                 ],
@@ -173,11 +174,34 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                   padding:
                                       EdgeInsets.only(left: 5.w, right: 20.w),
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: _courseLearningModel!.courseFoundation.length,
+                                  itemCount: _courseLearningModel!
+                                      .courseFoundation.length,
                                   itemBuilder:
                                       (BuildContext contex, int index) {
                                     return GestureDetector(
                                         onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => DetailCourseView(
+                                                      id: _courseLearningModel!
+                                                          .courseFoundation[
+                                                              index]
+                                                          .materialId,
+                                                      title:
+                                                          _courseLearningModel!
+                                                              .courseFoundation[
+                                                                  index]
+                                                              .foundationName,
+                                                      desc:
+                                                          _courseLearningModel!
+                                                              .courseFoundation[
+                                                                  index]
+                                                              .description,
+                                                      img: _courseLearningModel!
+                                                          .courseFoundation[
+                                                              index]
+                                                          .coursePath)));
                                         },
                                         child: Recommended(
                                           category: _courseLearningModel!
@@ -189,7 +213,9 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                           course_desc: _courseLearningModel!
                                               .courseFoundation[index]
                                               .description,
-                                          image: _courseLearningModel!.courseFoundation[index].coursePath,
+                                          image: _courseLearningModel!
+                                              .courseFoundation[index]
+                                              .coursePath,
                                         ));
                                   }),
                             )

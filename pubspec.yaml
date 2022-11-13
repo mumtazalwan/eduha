@@ -49,6 +49,7 @@ dependencies:
   flutter_svg:
   percent_indicator:
   http:
+  flutter_rating_bar:
 
 dev_dependencies:
   flutter_test:

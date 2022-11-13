@@ -2,6 +2,7 @@
 //
 //     final dailyQuizzModel = dailyQuizzModelFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 DailyQuizzModel dailyQuizzModelFromJson(String str) => DailyQuizzModel.fromJson(json.decode(str));
@@ -12,39 +13,37 @@ class DailyQuizzModel {
   DailyQuizzModel({
     required this.statusCode,
     required this.message,
-    required this.learningPath,
+    required this.data,
   });
 
   String statusCode;
   String message;
-  List<LearningPath> learningPath;
+  List<Datum> data;
 
   factory DailyQuizzModel.fromJson(Map<String, dynamic> json) => DailyQuizzModel(
     statusCode: json["status code"],
     message: json["message"],
-    learningPath: List<LearningPath>.from(json["learning_path"].map((x) => LearningPath.fromJson(x))),
+    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status code": statusCode,
     "message": message,
-    "learning_path": List<dynamic>.from(learningPath.map((x) => x.toJson())),
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
   };
 }
 
-class LearningPath {
-  LearningPath({
+class Datum {
+  Datum({
     required this.id,
     required this.courseName,
     required this.quizName,
     required this.quizPath,
     required this.miniDescription,
     required this.question,
-    required this.selection1,
-    required this.selection2,
-    required this.selection3,
     required this.correctAnswear,
     required this.explanation,
+    required this.dyQuizz,
   });
 
   int id;
@@ -53,24 +52,20 @@ class LearningPath {
   String quizPath;
   String miniDescription;
   String question;
-  String selection1;
-  String selection2;
-  String selection3;
-  String correctAnswear;
+  int correctAnswear;
   String explanation;
+  List<DyQuizz> dyQuizz;
 
-  factory LearningPath.fromJson(Map<String, dynamic> json) => LearningPath(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
     courseName: json["course_name"],
     quizName: json["quiz_name"],
     quizPath: json["quiz_path"],
     miniDescription: json["mini_description"],
     question: json["question"],
-    selection1: json["selection1"],
-    selection2: json["selection2"],
-    selection3: json["selection3"],
     correctAnswear: json["correct_answear"],
     explanation: json["explanation"],
+    dyQuizz: List<DyQuizz>.from(json["dy_quizz"].map((x) => DyQuizz.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -80,10 +75,36 @@ class LearningPath {
     "quiz_path": quizPath,
     "mini_description": miniDescription,
     "question": question,
-    "selection1": selection1,
-    "selection2": selection2,
-    "selection3": selection3,
     "correct_answear": correctAnswear,
     "explanation": explanation,
+    "dy_quizz": List<dynamic>.from(dyQuizz.map((x) => x.toJson())),
+  };
+}
+
+class DyQuizz {
+  DyQuizz({
+    required this.id,
+    required this.text,
+    required this.isCorrect,
+    required this.getSelection,
+  });
+
+  int id;
+  String text;
+  int isCorrect;
+  int getSelection;
+
+  factory DyQuizz.fromJson(Map<String, dynamic> json) => DyQuizz(
+    id: json["id"],
+    text: json["Text"],
+    isCorrect: json["isCorrect"],
+    getSelection: json["get_selection"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "Text": text,
+    "isCorrect": isCorrect,
+    "get_selection": getSelection,
   };
 }
