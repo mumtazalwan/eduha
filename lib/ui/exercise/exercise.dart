@@ -1,6 +1,6 @@
 import 'package:eduha/common/color_values.dart';
 import 'package:eduha/model/detail_course.dart';
-import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';

@@ -1,5 +1,5 @@
 import 'package:eduha/model/daily_quizz.dart';
-import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/api_service.dart';
 import 'package:eduha/ui/detail_quizz/detail_quizz.dart';
 import 'package:eduha/ui/widget/item_daily_quizz.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +52,9 @@ class _DailyQuizzState extends State<DailyQuizz> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DetailQuizz(data: dailyQuizzModel!.data[index],)));
+                              builder: (context) => DetailQuizz(
+                                    data: dailyQuizzModel!.data[index],
+                                  )));
                     },
                     child: DailyQuizzCard(
                       course_name: quizz_list.courseName,
@@ -64,8 +66,10 @@ class _DailyQuizzState extends State<DailyQuizz> {
                 }),
           )
         : Center(
-            child:
-                Lottie.asset('assets/lottie/cubes_loader.json', height: 200.h),
+            child: Lottie.asset(
+              'assets/lottie/cubes_loader.json',
+              height: 200.h,
+            ),
           );
   }
 }

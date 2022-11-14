@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eduha/common/color_values.dart';
 import 'package:eduha/model/detail_course.dart';
-import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/api_service.dart';
 import 'package:eduha/service/firebase_service.dart';
 import 'package:eduha/ui/widget/item_lesson.dart';
 import 'package:firebase_auth/firebase_auth.dart';
