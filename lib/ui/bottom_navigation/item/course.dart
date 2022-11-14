@@ -1,7 +1,7 @@
 import 'package:eduha/common/color_values.dart';
 import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/model/learning_path.dart';
-import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/api_service.dart';
 import 'package:eduha/ui/widget/item_learning_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -173,8 +173,10 @@ class _CourseViewState extends State<CourseView> {
                 ),
               )
             : Center(
-                child: Lottie.asset('assets/lottie/cubes_loader.json',
-                    height: 200.h),
+                child: Lottie.asset(
+                  'assets/lottie/cubes_loader.json',
+                  height: 200.h,
+                ),
               ),
       ),
     );

@@ -186,7 +186,8 @@ class FirebaseService {
   }
 
   Future saveProgressCourse(String learningPath, String course, String type,
-      String lesson, int index, double progress) async {
+      String lesson, double progress,
+      {int? index, bool isLastIndex = false}) async {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -207,17 +208,23 @@ class FirebaseService {
       FirebaseFirestore.instance.runTransaction((transaction) async {
         DocumentSnapshot course = await transaction.get(courseDocument);
 
-        if (!course.exists) {
-          courseDocument.set({
-            'index': index,
-            'progress': progress,
+        if (isLastIndex == true) {
+          courseDocument.update({
+            'isLastIndex': true,
           });
         } else {
-          if (course['progress'] < 0.999) {
-            transaction.update(courseDocument, {
-              'progress': progress,
+          if (!course.exists) {
+            courseDocument.set({
               'index': index,
+              'progress': progress,
             });
+          } else {
+            if (course['progress'] < 0.999) {
+              transaction.update(courseDocument, {
+                'progress': progress,
+                'index': index,
+              });
+            }
           }
         }
       });

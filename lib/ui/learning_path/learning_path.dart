@@ -1,5 +1,5 @@
 import 'package:eduha/model/course_learning.dart';
-import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/api_service.dart';
 import 'package:eduha/ui/widget/item_course.dart';
 import 'package:eduha/ui/widget/item_course_learning.dart';
 import 'package:flutter/material.dart';

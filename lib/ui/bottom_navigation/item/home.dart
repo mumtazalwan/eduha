@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import '../../../service/api-service.dart';
+import '../../../service/api_service.dart';
 import '../../detail_course/detail_course.dart';
 import '../../widget/item_recommended_home.dart';
 
@@ -260,8 +260,10 @@ class _HomeDashboardState extends State<HomeDashboard> {
                 },
               )
             : Center(
-                child: Lottie.asset('assets/lottie/cubes_loader.json',
-                    height: 200.h),
+                child: Lottie.asset(
+                  'assets/lottie/cubes_loader.json',
+                  height: 200.h,
+                ),
               ),
       ),
     );
