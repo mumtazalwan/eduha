@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eduha/common/navigate.dart';
 import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/ui/exercise/exercise.dart';
 import 'package:eduha/ui/lesson/lesson.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,13 +15,16 @@ class ItemLesson extends StatefulWidget {
   int index, id;
   List<CourseFoundation> course;
   List<Exercise> exercise;
+  String learningPath, courseTitle;
 
   ItemLesson(
       {Key? key,
       required this.course,
       required this.exercise,
       this.index = 0,
-      required this.id})
+      required this.id,
+      required this.learningPath,
+      required this.courseTitle})
       : super(key: key);
 
   @override
@@ -96,6 +101,9 @@ class _ItemLessonState extends State<ItemLesson> {
                             context,
                             LessonView(
                               id: widget.course[widget.index].id,
+                              learningPath: widget.learningPath,
+                              course: widget.courseTitle,
+                              lesson: widget.course[widget.index].mainTitle,
                             ),
                           );
                         },
@@ -134,13 +142,8 @@ class _ItemLessonState extends State<ItemLesson> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              LinearPercentIndicator(
-                                padding: const EdgeInsets.all(0),
-                                percent: 0.5,
-                                barRadius: const Radius.circular(1),
-                                backgroundColor: ColorValues.green.withOpacity(0.2),
-                                progressColor: ColorValues.green,
-                              ),
+                              _progressIndicatorCourse(
+                                  widget.course[widget.index].mainTitle),
                             ],
                           ),
                         ),
@@ -151,6 +154,10 @@ class _ItemLessonState extends State<ItemLesson> {
                             context,
                             ExerciseView(
                               index: widget.index,
+                              learningPath: widget.learningPath,
+                              course: widget.courseTitle,
+                              lesson:
+                                  widget.exercise[widget.index].exerciseTitle,
                             ),
                           );
                         },
@@ -190,15 +197,10 @@ class _ItemLessonState extends State<ItemLesson> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               SizedBox(
-                                height: 15.h,
+                                height: 13.h,
                               ),
-                              LinearPercentIndicator(
-                                padding: const EdgeInsets.all(0),
-                                percent: 0.5,
-                                barRadius: const Radius.circular(2),
-                                backgroundColor: ColorValues.green.withOpacity(0.2),
-                                progressColor: ColorValues.green,
-                              ),
+                              _progressIndicatorExercise(
+                                  widget.exercise[widget.index].exerciseTitle),
                             ],
                           ),
                         ),
@@ -216,6 +218,9 @@ class _ItemLessonState extends State<ItemLesson> {
                             context,
                             LessonView(
                               id: widget.course[widget.index].id,
+                              learningPath: widget.learningPath,
+                              course: widget.courseTitle,
+                              lesson: widget.course[widget.index].mainTitle,
                             ),
                           );
                         },
@@ -254,13 +259,8 @@ class _ItemLessonState extends State<ItemLesson> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              LinearPercentIndicator(
-                                padding: const EdgeInsets.all(0),
-                                percent: 0.5,
-                                barRadius: const Radius.circular(1),
-                                backgroundColor: ColorValues.green.withOpacity(0.2),
-                                progressColor: ColorValues.green,
-                              ),
+                              _progressIndicatorCourse(
+                                  widget.course[widget.index].mainTitle),
                             ],
                           ),
                         ),
@@ -315,6 +315,66 @@ class _ItemLessonState extends State<ItemLesson> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _progressIndicatorCourse(String title) {
+    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection(widget.learningPath)
+          .doc(widget.courseTitle)
+          .collection('course')
+          .doc(title)
+          .snapshots(),
+      builder: (_, snapshot) {
+        if (!snapshot.hasData || snapshot.hasError) {
+          return Container();
+        } else {
+          var e = snapshot.data!;
+
+          return snapshot.data!.exists
+              ? LinearPercentIndicator(
+                  padding: const EdgeInsets.all(0),
+                  percent: e['progress'],
+                  barRadius: const Radius.circular(1),
+                  backgroundColor: ColorValues.green.withOpacity(0.2),
+                  progressColor: ColorValues.green,
+                )
+              : Container();
+        }
+      },
+    );
+  }
+
+  Widget _progressIndicatorExercise(String title) {
+    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection(widget.learningPath)
+          .doc(widget.courseTitle)
+          .collection('exercise')
+          .doc(title)
+          .snapshots(),
+      builder: (_, snapshot) {
+        if (!snapshot.hasData || snapshot.hasError) {
+          return Container();
+        } else {
+          var e = snapshot.data!;
+
+          return snapshot.data!.exists
+              ? LinearPercentIndicator(
+                  padding: const EdgeInsets.all(0),
+                  percent: e['progress'],
+                  barRadius: const Radius.circular(1),
+                  backgroundColor: ColorValues.green.withOpacity(0.2),
+                  progressColor: ColorValues.green,
+                )
+              : Container();
+        }
+      },
     );
   }
 }

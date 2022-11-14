@@ -1,4 +1,5 @@
 import 'package:eduha/model/daily_quizz.dart';
+import 'package:eduha/ui/detail_quizz/solution_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,18 +15,24 @@ class DetailQuizz extends StatefulWidget {
 }
 
 class _DetailQuizzState extends State<DetailQuizz> {
-  bool isPressed = false;
-  int value = 0;
-  Color btnColor = Colors.white;
+  bool isSubmited = false;
+  int? selectedIndex, valueIndex;
+  Color basic = Colors.white;
   Color correct = Colors.green;
   Color wrong = Colors.red;
+  Color btnColor = Colors.amber;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: Icon(Icons.arrow_back, color: Colors.black),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            color: Colors.black),
         title: Text("Daily Challenge"),
       ),
       body: SingleChildScrollView(
@@ -106,20 +113,15 @@ class _DetailQuizzState extends State<DetailQuizz> {
                               itemCount: 3,
                               itemBuilder: (BuildContext contex, int index) {
                                 return GestureDetector(
-                                  onTap: () async {
-                                    if (widget.data.dyQuizz[index].isCorrect ==
-                                        widget.data.correctAnswear) {
+                                  onTap: () {
+                                    if (isSubmited == false) {
                                       setState(() {
-                                        isPressed = true;
-                                        value = widget
+                                        selectedIndex = index;
+                                        valueIndex = widget
                                             .data.dyQuizz[index].isCorrect;
-                                        btnColor = Colors.amber;
                                       });
                                     } else {
-                                      setState(() {
-                                        isPressed = false;
-                                        // btnColor = wrong;
-                                      });
+                                      null;
                                     }
                                   },
                                   child: Container(
@@ -133,7 +135,9 @@ class _DetailQuizzState extends State<DetailQuizz> {
                                                 fontSize: 18.sp,
                                                 fontWeight: FontWeight.w600))),
                                     decoration: BoxDecoration(
-                                        color: btnColor,
+                                        color: basic = selectedIndex == index
+                                            ? btnColor
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(5)),
                                   ),
                                 );
@@ -145,17 +149,31 @@ class _DetailQuizzState extends State<DetailQuizz> {
                                 style: ElevatedButton.styleFrom(
                                     elevation: 0, primary: Colors.blue),
                                 onPressed: () {
-                                  if (value == widget.data.correctAnswear &&
-                                      isPressed == true) {
-                                    setState(() {
-                                      btnColor = correct;
-                                    });
+                                  if (selectedIndex == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        padding: const EdgeInsets.all(15),
+                                        duration: const Duration(seconds: 1),
+                                        content: Text(
+                                          'Please choose answer first!',
+                                          style: GoogleFonts.inter(),
+                                        ),
+                                      ),
+                                    );
                                   } else {
-                                    setState(() {
-                                      btnColor = wrong;
-                                    });
+                                    if (valueIndex ==
+                                        widget.data.correctAnswear) {
+                                      setState(() {
+                                        btnColor = Colors.green;
+                                        isSubmited = true;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        btnColor = Colors.red;
+                                        isSubmited = true;
+                                      });
+                                    }
                                   }
-                                  // isPressed ? correct : wrong;
                                 },
                                 child: Text("Submit")),
                           ),
@@ -168,7 +186,30 @@ class _DetailQuizzState extends State<DetailQuizz> {
                                         color: Colors.black, width: 0.5),
                                     elevation: 0,
                                     primary: Colors.white),
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (isSubmited == true) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => SolutionQuizz(
+                                                  question:
+                                                      widget.data.question,
+                                                  solution:
+                                                      widget.data.explanation,
+                                                )));
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        padding: const EdgeInsets.all(15),
+                                        duration: const Duration(seconds: 1),
+                                        content: Text(
+                                          'Please choose answer first!',
+                                          style: GoogleFonts.inter(),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
                                 child: Text(
                                   "Show explanation",
                                   style: GoogleFonts.inter(color: Colors.black),

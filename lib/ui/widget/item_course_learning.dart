@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ItemCourseLearning extends StatelessWidget {
-  final String title, desc, image;
+  final String title, titleLearningPath, desc, image;
   final int id;
 
   const ItemCourseLearning(
@@ -14,7 +14,8 @@ class ItemCourseLearning extends StatelessWidget {
       required this.title,
       required this.desc,
       required this.image,
-      required this.id})
+      required this.id,
+      required this.titleLearningPath})
       : super(key: key);
 
   @override
@@ -26,6 +27,7 @@ class ItemCourseLearning extends StatelessWidget {
             DetailCourseView(
               id: id,
               title: title,
+              titleLearningPath: titleLearningPath,
               desc: desc,
               img: image,
             ));
