@@ -63,6 +63,7 @@ class _LessonViewState extends State<LessonView> {
         _controller = PageController(initialPage: 0);
       }
     } else {
+      _controller = PageController();
       print('Not have document');
     }
   }
@@ -211,7 +212,7 @@ class _LessonViewState extends State<LessonView> {
                                         index: index,
                                       );
 
-                                      _controller!.nextPage(
+                                      _controller?.nextPage(
                                         duration:
                                             const Duration(milliseconds: 400),
                                         curve: Curves.easeInOut,
