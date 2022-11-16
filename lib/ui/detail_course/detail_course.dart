@@ -140,16 +140,21 @@ class _DetailCourseViewState extends State<DetailCourseView> {
                                           ),
                                         ),
                                         onPressed: () {
-                                          // Navigate.navigatorPush(
-                                          //   context,
-                                          //   LessonView(
-                                          //     id: _detailCourseModel!
-                                          //         .courseFoundation[e['index']]
-                                          //         .id,
-                                          //     learningPath: widget.titleLearningPath,
-                                          //     course: widget.title,
-                                          //   ),
-                                          // );
+                                          Navigate.navigatorPush(
+                                            context,
+                                            LessonView(
+                                              id: _detailCourseModel!
+                                                  .courseFoundation[e['index']]
+                                                  .id,
+                                              learningPath:
+                                                  widget.titleLearningPath,
+                                              course: widget.title,
+                                              lesson: _detailCourseModel!
+                                                  .courseFoundation[e['index']]
+                                                  .mainTitle,
+                                              indexCourse: e['index'],
+                                            ),
+                                          );
                                         },
                                         child: const Text('CONTINUE COURSE'),
                                       ),
@@ -196,8 +201,10 @@ class _DetailCourseViewState extends State<DetailCourseView> {
                 },
               )
             : Center(
-                child: Lottie.asset('assets/lottie/cubes_loader.json',
-                    height: 200.h),
+                child: Lottie.asset(
+                  'assets/lottie/cubes_loader.json',
+                  height: 200.h,
+                ),
               ),
       ),
     );
