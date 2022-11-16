@@ -12,14 +12,15 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class LessonView extends StatefulWidget {
   final String learningPath, course, lesson;
-  final int id;
+  final int id, indexCourse;
 
   const LessonView(
       {Key? key,
       required this.id,
       required this.learningPath,
       required this.course,
-      required this.lesson})
+      required this.lesson,
+      required this.indexCourse})
       : super(key: key);
 
   @override
@@ -190,6 +191,7 @@ class _LessonViewState extends State<LessonView> {
                                           widget.lesson,
                                           _progress,
                                           index: index,
+                                          indexCourse: widget.indexCourse,
                                         );
                                       } else {
                                         Navigator.pop(context);
@@ -210,6 +212,7 @@ class _LessonViewState extends State<LessonView> {
                                         widget.lesson,
                                         _progress,
                                         index: index,
+                                        indexCourse: widget.indexCourse,
                                       );
 
                                       _controller?.nextPage(
@@ -267,6 +270,7 @@ class _LessonViewState extends State<LessonView> {
                             widget.lesson,
                             _progress,
                             isLastIndex: true,
+                            indexCourse: widget.indexCourse,
                           );
                           if (!mounted) return;
                           Navigator.pop(context);
