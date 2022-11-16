@@ -6,6 +6,7 @@ import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../common/navigate.dart';
@@ -58,7 +59,7 @@ class _ProfileViewState extends State<ProfileView> {
                       children: [
                         ProfilePicture(
                           name: e['full-name'],
-                          radius: 40.h,
+                          radius: 35.h,
                           fontsize: 20.sp,
                         ),
                         SizedBox(
@@ -69,18 +70,176 @@ class _ProfileViewState extends State<ProfileView> {
                           children: [
                             Text(
                               e['full-name'],
-                              style: theme.subtitle1,
+                              style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.bold, fontSize: 24.sp),
                             ),
                             SizedBox(
-                              height: 2.h,
+                              height: 5.h,
                             ),
-                            Text(
-                              e['email'],
-                              style: theme.bodyText1,
-                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.add,
+                                    size: 16.sp, color: Colors.blueAccent),
+                                SizedBox(width: 5.w),
+                                Text(
+                                  'Add Status',
+                                  style: GoogleFonts.inter(
+                                      fontSize: 16.sp,
+                                      color: Colors.blueAccent),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Icon(Icons.supervised_user_circle, size: 22.sp),
+                                SizedBox(width: 20.w),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Username",
+                                      style: GoogleFonts.inter(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    Text(e['full-name'],
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600)),
+                                    SizedBox(height: 5.h),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 40.w),
+                            child: Divider(
+                              color: Colors.black,
+                              thickness: 0.4,
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 10.h),
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Icon(Icons.cake, size: 22.sp),
+                                SizedBox(width: 20.w),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Birth Date",
+                                      style: GoogleFonts.inter(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    Text("10 Maret 2006",
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600)),
+                                    SizedBox(height: 5.h),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 40.w),
+                            child: Divider(
+                              color: Colors.black,
+                              thickness: 0.4,
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 10.h),
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Icon(Icons.email, size: 22.sp),
+                                SizedBox(width: 20.w),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Email",
+                                      style: GoogleFonts.inter(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    Text(e['email'],
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600)),
+                                    SizedBox(height: 5.h),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 40.w),
+                            child: Divider(
+                              color: Colors.black,
+                              thickness: 0.4,
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 10.h),
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                Icon(Icons.join_left, size: 22.sp),
+                                SizedBox(width: 20.w),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Join",
+                                      style: GoogleFonts.inter(
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    Text(
+                                        DateFormat('EEEE, d MMM yyyy').format(
+                                            (e['created-at'] as Timestamp)
+                                                .toDate()),
+                                        style: GoogleFonts.inter(
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600)),
+                                    SizedBox(height: 5.h),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 40.w),
+                            child: Divider(
+                              color: Colors.black,
+                              thickness: 0.4,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 50.h,
