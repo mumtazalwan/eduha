@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eduha/common/color_values.dart';
 import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/service/api_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -74,24 +76,36 @@ class _ExerciseViewState extends State<ExerciseView> {
           barRadius: const Radius.circular(3),
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 15.w),
-            child: Row(
-              children: [
-                Text(
-                  '1',
-                  style: GoogleFonts.inter(
-                    color: Colors.black,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
+          StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Container();
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(right: 15.w),
+                  child: Row(
+                    children: [
+                      Text(
+                        '${snapshot.data!['progress']}',
+                        style: GoogleFonts.inter(
+                          color: Colors.black,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.flash_on_outlined,
+                        color: Colors.amber,
+                      ),
+                    ],
                   ),
-                ),
-                const Icon(
-                  Icons.flash_on_outlined,
-                  color: Colors.amber,
-                ),
-              ],
-            ),
+                );
+              }
+            },
           ),
         ],
       ),
