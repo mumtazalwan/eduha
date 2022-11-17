@@ -205,31 +205,31 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                               return GestureDetector(
                                                   onTap: () {
                                                     Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                DetailCourseView(
-                                                                  id: _courseLearningModel!
-                                                                      .courseFoundation[
-                                                                          index]
-                                                                      .materialId,
-                                                                  title: _courseLearningModel!
-                                                                      .courseFoundation[
-                                                                          index]
-                                                                      .foundationName,
-                                                                  desc: _courseLearningModel!
-                                                                      .courseFoundation[
-                                                                          index]
-                                                                      .description,
-                                                                  img: _courseLearningModel!
-                                                                      .courseFoundation[
-                                                                          index]
-                                                                      .coursePath,
-                                                                  titleLearningPath: _courseLearningModel!
-                                                                      .courseFoundation[
-                                                                          index]
-                                                                      .coursePath,
-                                                                )));
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DetailCourseView(
+                                                          id: _courseLearningModel!
+                                                              .courseFoundation[
+                                                                  index]
+                                                              .materialId,
+                                                          title: _courseLearningModel!
+                                                              .courseFoundation[
+                                                                  index]
+                                                              .foundationName,
+                                                          desc: _courseLearningModel!
+                                                              .courseFoundation[
+                                                                  index]
+                                                              .description,
+                                                          img: _courseLearningModel!
+                                                              .courseFoundation[
+                                                                  index]
+                                                              .coursePath,
+                                                          titleLearningPath:
+                                                              'Math Foundation',
+                                                        ),
+                                                      ),
+                                                    );
                                                   },
                                                   child: Recommended(
                                                     category:
