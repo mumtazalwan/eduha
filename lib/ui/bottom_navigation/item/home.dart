@@ -76,7 +76,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text("1",
+                                          Text("${e['progress']}",
                                               style: GoogleFonts.inter(
                                                   fontSize: 22.sp,
                                                   fontWeight: FontWeight.bold)),

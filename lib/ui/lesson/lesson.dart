@@ -111,24 +111,36 @@ class _LessonViewState extends State<LessonView> {
           barRadius: const Radius.circular(3),
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 15.w),
-            child: Row(
-              children: [
-                Text(
-                  '1',
-                  style: GoogleFonts.inter(
-                    color: Colors.black,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
+          StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Container();
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(right: 15.w),
+                  child: Row(
+                    children: [
+                      Text(
+                        '${snapshot.data!['progress']}',
+                        style: GoogleFonts.inter(
+                          color: Colors.black,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.flash_on_outlined,
+                        color: Colors.amber,
+                      ),
+                    ],
                   ),
-                ),
-                const Icon(
-                  Icons.flash_on_outlined,
-                  color: Colors.amber,
-                ),
-              ],
-            ),
+                );
+              }
+            },
           ),
         ],
       ),
@@ -248,8 +260,10 @@ class _LessonViewState extends State<LessonView> {
                       ),
                       Align(
                         alignment: Alignment.center,
-                        child: Lottie.asset('assets/lottie/finish.json',
-                            height: 280.h),
+                        child: Lottie.asset(
+                          'assets/lottie/finish.json',
+                          height: 280.h,
+                        ),
                       ),
                       SizedBox(
                         height: 20.h,

@@ -223,6 +223,13 @@ class FirebaseService {
         DocumentSnapshot course = await transaction.get(courseDocument);
 
         if (isLastIndex == true) {
+          if (course['isLastIndex'] == false) {
+            int newValue = user['progress'] + 1;
+            userDocument.update({
+              'progress': newValue,
+            });
+          }
+
           courseDocument.update({
             'isLastIndex': true,
           });
@@ -235,6 +242,7 @@ class FirebaseService {
             courseDocument.set({
               'index': index,
               'progress': progress,
+              'isLastIndex': false,
             });
           } else {
             if (course['progress'] < 0.999) {
