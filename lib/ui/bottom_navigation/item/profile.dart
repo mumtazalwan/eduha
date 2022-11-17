@@ -71,7 +71,9 @@ class _ProfileViewState extends State<ProfileView> {
                             Text(
                               e['full-name'],
                               style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.bold, fontSize: 24.sp),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.sp,
+                              ),
                             ),
                             SizedBox(
                               height: 5.h,
