@@ -27,6 +27,7 @@ class FirebaseService {
               'birthday': birthday,
               'created-at': DateTime.now(),
               'updated-at': DateTime.now(),
+              'progress': 1,
             });
             return true;
           } else {
@@ -105,12 +106,17 @@ class FirebaseService {
             DocumentSnapshot snapshot =
                 await transaction.get(documentReference);
 
+            String firstName =
+                googleSignInAccount.displayName!.split(' ').first;
+
             if (!snapshot.exists) {
               documentReference.set({
                 'email': googleSignInAccount.email,
                 'full-name': googleSignInAccount.displayName,
+                'first-name': firstName,
                 'created-at': DateTime.now(),
                 'updated-at': DateTime.now(),
+                'progress': 1,
               });
               return true;
             } else {
@@ -191,6 +197,9 @@ class FirebaseService {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
 
+      DocumentReference userDocument =
+          FirebaseFirestore.instance.collection('users').doc(uid);
+
       DocumentReference learningPathDocument = FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -206,8 +215,11 @@ class FirebaseService {
           .doc(lesson);
 
       FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot user = await transaction.get(userDocument);
+
         DocumentSnapshot learningPath =
             await transaction.get(learningPathDocument);
+
         DocumentSnapshot course = await transaction.get(courseDocument);
 
         if (isLastIndex == true) {
