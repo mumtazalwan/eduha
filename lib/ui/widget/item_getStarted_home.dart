@@ -21,7 +21,7 @@ class _GetStartedState extends State<GetStarted> {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(3),
-          border: Border.all(color: Colors.grey)),
+          border: Border.all(width: 0.5, color: Colors.grey)),
       child: Wrap(
         children: [
           Container(

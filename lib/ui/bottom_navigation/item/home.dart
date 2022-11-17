@@ -133,7 +133,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                         children: [
                                           Text("Menyelesaikan pre-algebra",
                                               style: GoogleFonts.inter(
-                                                  fontSize: 12,
+                                                  fontSize: 14.sp,
                                                   fontWeight: FontWeight.w400)),
                                           Icon(Icons.check, color: Colors.green)
                                         ],

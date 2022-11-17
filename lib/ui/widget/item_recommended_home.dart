@@ -27,7 +27,7 @@ class _RecommendedState extends State<Recommended> {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(3),
-            border: Border.all(color: Colors.grey)),
+            border: Border.all(width: 0.5, color: Colors.grey)),
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
