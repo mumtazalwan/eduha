@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eduha/model/course_learning.dart';
+import 'package:eduha/model/mission.dart';
 import 'package:eduha/ui/widget/item_getStarted_home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class HomeDashboard extends StatefulWidget {
 class _HomeDashboardState extends State<HomeDashboard> {
   CourseLearningModel? _courseLearningModel;
   bool _isLoaded = false;
+  Color missionComplete = Colors.green;
 
   Future getApi() async {
     _courseLearningModel = await ApiService().getCourseLearning2();
@@ -131,11 +133,26 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text("Menyelesaikan pre-algebra",
-                                              style: GoogleFonts.inter(
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400)),
-                                          Icon(Icons.check, color: Colors.green)
+                                          Text(mission[index].missionTitle,
+                                              style: mission[index]
+                                                          .missionPoint <=
+                                                      e['progress']
+                                                  ? GoogleFonts.inter(
+                                                      fontSize: 14.sp,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      decoration: TextDecoration
+                                                          .lineThrough)
+                                                  : GoogleFonts.inter(
+                                                      fontSize: 14.sp,
+                                                      fontWeight:
+                                                          FontWeight.w400)),
+                                          Icon(Icons.check,
+                                              color:
+                                                  mission[index].missionPoint <=
+                                                          e['progress']
+                                                      ? missionComplete
+                                                      : Colors.grey)
                                         ],
                                       ),
                                     );
