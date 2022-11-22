@@ -1,4 +1,5 @@
 import 'package:eduha/common/color_values.dart';
+import 'package:eduha/model/course_learning.dart';
 import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/model/learning_path.dart';
 import 'package:eduha/service/api_service.dart';
@@ -22,14 +23,14 @@ class CourseView extends StatefulWidget {
 
 class _CourseViewState extends State<CourseView> {
   LearningPathModel? _learningPathModel;
-  DetailCourseModel? _detailCourseModel;
-  DetailCourseModel? _detailCourseModel2;
+  CourseLearningModel? _courseLearningModel;
+  CourseLearningModel? _courseLearningModel2;
   bool _isLoaded = false;
 
   Future _getApi() async {
     _learningPathModel = await ApiService().getLearningPath();
-    _detailCourseModel = await ApiService().getDetailCourse(1111);
-    _detailCourseModel2 = await ApiService().getDetailCourse(1112);
+    _courseLearningModel = await ApiService().getCourseLearning(111);
+    _courseLearningModel2 = await ApiService().getCourseLearning(111);
     if (mounted) {
       setState(() {
         _isLoaded = true;
@@ -91,13 +92,11 @@ class _CourseViewState extends State<CourseView> {
                             child: ListView.builder(
                               padding: EdgeInsets.only(left: 20.w, right: 5.w),
                               scrollDirection: Axis.horizontal,
-                              itemCount: 4,
+                              itemCount: _courseLearningModel!.courseFoundation.length,
                               itemBuilder: (_, index) {
-                                var model =
-                                    _detailCourseModel!.courseFoundation[index];
-
                                 return ItemCourse(
-                                  title: model.mainTitle,
+                                  model: _courseLearningModel!.courseFoundation,
+                                  index: index,
                                 );
                               },
                             ),
@@ -120,14 +119,11 @@ class _CourseViewState extends State<CourseView> {
                             child: ListView.builder(
                               padding: EdgeInsets.only(left: 20.w, right: 5.w),
                               scrollDirection: Axis.horizontal,
-                              itemCount: 4,
+                              itemCount: _courseLearningModel!.courseFoundation.length,
                               itemBuilder: (_, index) {
-                                var model = _detailCourseModel2!
-                                    .courseFoundation[index];
-
                                 return ItemCourse(
-                                  title: model.mainTitle,
-                                  isOne: false,
+                                  model: _courseLearningModel!.courseFoundation,
+                                  index: index,
                                 );
                               },
                             ),

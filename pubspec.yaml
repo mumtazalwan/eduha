@@ -81,6 +81,7 @@ flutter:
      - assets/courses/
      - assets/learning_path/
      - assets/daily_quizz/
+     - assets/pre-algebra/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
