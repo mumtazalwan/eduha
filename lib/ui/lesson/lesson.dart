@@ -57,7 +57,7 @@ class _LessonViewState extends State<LessonView> {
     Map<String, dynamic>? data = doc.data();
 
     if (doc.exists) {
-      if (!data!.containsKey('isLastIndex')) {
+      if (!data!['isLastIndex'] == true) {
         _controller = PageController(initialPage: data['index'] + 1);
         _progress = data['progress'];
       } else {

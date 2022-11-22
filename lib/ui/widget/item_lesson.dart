@@ -119,7 +119,10 @@ class _ItemLessonState extends State<ItemLesson> {
                               Container(
                                 width: double.infinity,
                                 height: 120.h,
-                                color: Colors.black,
+                                child: Image.asset(
+                                  'assets/pre-algebra/${widget.course[widget.index].imgPath}.png',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                               SizedBox(
                                 height: 15.h,
@@ -173,7 +176,10 @@ class _ItemLessonState extends State<ItemLesson> {
                               Container(
                                 width: double.infinity,
                                 height: 120.h,
-                                color: Colors.black,
+                                child: Image.asset(
+                                  'assets/pre-algebra/a.png',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                               SizedBox(
                                 height: 15.h,
