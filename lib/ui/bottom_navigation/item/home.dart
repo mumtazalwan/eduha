@@ -101,6 +101,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                               style: GoogleFonts.inter(
                                                   fontSize: 22.sp,
                                                   fontWeight: FontWeight.bold)),
+                                          SizedBox(height: 5.sp),
                                           Flexible(
                                               child: Text(
                                             "Take your first steps to bilding ",
@@ -147,7 +148,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                                       fontSize: 14.sp,
                                                       fontWeight:
                                                           FontWeight.w400)),
-                                          Icon(Icons.check,
+                                          Icon(Icons.check_circle,
                                               color:
                                                   mission[index].missionPoint <=
                                                           e['progress']

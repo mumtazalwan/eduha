@@ -33,6 +33,10 @@ class _SolutionQuizzState extends State<SolutionQuizz> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text("Question",
+                  style: GoogleFonts.inter(
+                      fontSize: 18.sp, fontWeight: FontWeight.bold)),
+              SizedBox(height: 15.h),
               Container(
                 padding: EdgeInsets.all(15),
                 color: Colors.white,
@@ -42,13 +46,21 @@ class _SolutionQuizzState extends State<SolutionQuizz> {
                         fontSize: 18.sp, fontWeight: FontWeight.w500)),
               ),
               SizedBox(height: 15.h),
-              Text("Solution", style: GoogleFonts.inter(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold)),
+              Text("Solution",
+                  style: GoogleFonts.inter(
+                      fontSize: 18.sp, fontWeight: FontWeight.bold)),
               SizedBox(height: 15.h),
-              Text(widget.solution, style: GoogleFonts.inter(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w500))
+              Container(
+                padding: EdgeInsets.all(15),
+                color: Colors.amber.withOpacity(0.5),
+                width: double.infinity,
+                child: Text(
+                  widget.solution,
+                  style: GoogleFonts.inter(
+                      fontSize: 16.sp, fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.justify,
+                ),
+              )
             ],
           ),
         ),

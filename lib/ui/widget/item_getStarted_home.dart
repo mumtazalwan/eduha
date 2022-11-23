@@ -25,9 +25,10 @@ class _GetStartedState extends State<GetStarted> {
       child: Wrap(
         children: [
           Container(
-            height: 150,
-            color: Colors.amber,
+            height: 200,
+            width: double.infinity,
             margin: EdgeInsets.only(bottom: 15),
+            child: Image.asset('assets/pre-algebra/a.png', fit: BoxFit.fill,),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -5,6 +5,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../service/api_service.dart';
+
 class DetailQuizz extends StatefulWidget {
   Datum data;
 
@@ -15,6 +17,7 @@ class DetailQuizz extends StatefulWidget {
 }
 
 class _DetailQuizzState extends State<DetailQuizz> {
+
   bool isSubmited = false;
   int? selectedIndex, valueIndex;
   Color basic = Colors.white;
@@ -51,12 +54,13 @@ class _DetailQuizzState extends State<DetailQuizz> {
               SizedBox(height: 10.h),
               Text(widget.data.miniDescription,
                   style: GoogleFonts.inter(
-                      fontSize: 12.sp, fontWeight: FontWeight.w400)),
+                      fontSize: 16.sp, fontWeight: FontWeight.w400)),
               SizedBox(height: 15.h),
               Container(
                 height: 250.h,
                 width: double.infinity,
-                color: Colors.amber,
+                // color: Colors.amber,
+                child: Image.asset('assets/daily_quizz/${widget.data.quizPath}.png'),
               ),
               SizedBox(height: 25.h),
               Column(
