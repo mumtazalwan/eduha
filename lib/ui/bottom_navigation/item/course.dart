@@ -139,7 +139,7 @@ class _CourseViewState extends State<CourseView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Popular Leaning Paths',
+                              'Popular Learning Paths',
                               style: theme.headline5,
                             ),
                             SizedBox(

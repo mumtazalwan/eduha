@@ -12,7 +12,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class LessonView extends StatefulWidget {
   final String learningPath, course, lesson;
-  final int id, indexCourse;
+  final int id, indexCourse, length;
 
   const LessonView(
       {Key? key,
@@ -20,7 +20,8 @@ class LessonView extends StatefulWidget {
       required this.learningPath,
       required this.course,
       required this.lesson,
-      required this.indexCourse})
+      required this.indexCourse,
+      required this.length})
       : super(key: key);
 
   @override
@@ -193,6 +194,7 @@ class _LessonViewState extends State<LessonView> {
                                           _progress += 1 /
                                               _model!.courseFoundation.length
                                                   .toDouble();
+                                          print('length = `${_model!.courseFoundation.length}');
                                         });
 
                                         await FirebaseService()
@@ -202,6 +204,7 @@ class _LessonViewState extends State<LessonView> {
                                           'course',
                                           widget.lesson,
                                           _progress,
+                                          widget.length,
                                           index: index,
                                           indexCourse: widget.indexCourse,
                                         );
@@ -214,6 +217,8 @@ class _LessonViewState extends State<LessonView> {
                                         _progress += 1 /
                                             _model!.courseFoundation.length
                                                 .toDouble();
+
+                                        print('length = `${_model!.courseFoundation.length}');
                                       });
 
                                       await FirebaseService()
@@ -223,6 +228,7 @@ class _LessonViewState extends State<LessonView> {
                                         'course',
                                         widget.lesson,
                                         _progress,
+                                        widget.length,
                                         index: index,
                                         indexCourse: widget.indexCourse,
                                       );
@@ -283,6 +289,7 @@ class _LessonViewState extends State<LessonView> {
                             'course',
                             widget.lesson,
                             _progress,
+                            widget.length,
                             isLastIndex: true,
                             indexCourse: widget.indexCourse,
                           );

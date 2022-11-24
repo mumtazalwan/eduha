@@ -84,10 +84,12 @@ class ItemCourse extends StatelessWidget {
         } else {
           var e = snapshot.data!;
 
-          return e.exists && e.data()!.containsKey('progress')
+          return e.exists &&
+                  e.data()!.containsKey('progress') &&
+                  e['progress'] > 0
               ? LinearPercentIndicator(
                   padding: const EdgeInsets.all(0),
-                  percent: e['progress'],
+                  percent: e['progress'] == 1 ? 1.0 : e['progress'],
                   barRadius: const Radius.circular(1),
                   backgroundColor: ColorValues.green.withOpacity(0.2),
                   progressColor: ColorValues.green,

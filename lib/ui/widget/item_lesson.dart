@@ -105,6 +105,7 @@ class _ItemLessonState extends State<ItemLesson> {
                               course: widget.courseTitle,
                               lesson: widget.course[widget.index].mainTitle,
                               indexCourse: widget.index,
+                              length: widget.course.length,
                             ),
                           );
                         },
@@ -229,6 +230,7 @@ class _ItemLessonState extends State<ItemLesson> {
                               course: widget.courseTitle,
                               lesson: widget.course[widget.index].mainTitle,
                               indexCourse: widget.index,
+                              length: widget.course.length,
                             ),
                           );
                         },
