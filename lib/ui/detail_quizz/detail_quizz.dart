@@ -92,7 +92,7 @@ class _DetailQuizzState extends State<DetailQuizz> {
                                       fontSize: 16.sp,
                                       fontWeight: FontWeight.w600)),
                               RatingBar.builder(
-                                initialRating: 1,
+                                initialRating: widget.data.difficulty.toDouble(),
                                 minRating: 1,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,

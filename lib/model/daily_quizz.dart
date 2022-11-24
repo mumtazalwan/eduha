@@ -43,6 +43,7 @@ class Datum {
     required this.question,
     required this.correctAnswear,
     required this.explanation,
+    required this.difficulty,
     required this.dyQuizz,
   });
 
@@ -54,6 +55,7 @@ class Datum {
   String question;
   int correctAnswear;
   String explanation;
+  int difficulty;
   List<DyQuizz> dyQuizz;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -65,6 +67,7 @@ class Datum {
     question: json["question"],
     correctAnswear: json["correct_answear"],
     explanation: json["explanation"],
+    difficulty: json["difficulty"],
     dyQuizz: List<DyQuizz>.from(json["dy_quizz"].map((x) => DyQuizz.fromJson(x))),
   );
 
@@ -77,6 +80,7 @@ class Datum {
     "question": question,
     "correct_answear": correctAnswear,
     "explanation": explanation,
+    "difficulty": difficulty,
     "dy_quizz": List<dynamic>.from(dyQuizz.map((x) => x.toJson())),
   };
 }
