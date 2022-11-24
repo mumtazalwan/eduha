@@ -183,6 +183,7 @@ class FirebaseService {
         if (!snapshot.exists) {
           documentReference.set({
             'index': 0,
+            'progress': 0,
           });
         }
       });
@@ -192,7 +193,7 @@ class FirebaseService {
   }
 
   Future saveProgressCourse(String learningPath, String course, String type,
-      String lesson, double progress,
+      String lesson, double progress, num length,
       {int? index, int? indexCourse, bool isLastIndex = false}) async {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -244,11 +245,34 @@ class FirebaseService {
               'progress': progress,
               'isLastIndex': false,
             });
+
+            print('progress = $progress');
+            double progressLearning = progress / 14;
+            print('progress learning = $progressLearning');
+
+            double learningPathProgress =
+                learningPath['progress'] + progressLearning;
+            print('learning path progress $learningPathProgress');
+
+            learningPathDocument.update({
+              'progress': learningPathProgress,
+            });
           } else {
             if (course['progress'] < 0.999) {
               transaction.update(courseDocument, {
                 'progress': progress,
                 'index': index,
+              });
+
+              double progressLearning = progress / 14;
+              print('progressLearning = $progressLearning');
+
+              double learningPathProgress =
+                  learningPath['progress'] + progressLearning;
+              print('learningPathProgress $learningPathProgress');
+
+              transaction.update(learningPathDocument, {
+                'progress': learningPathProgress,
               });
             }
           }
@@ -264,6 +288,9 @@ class FirebaseService {
     try {
       String uid = FirebaseAuth.instance.currentUser!.uid;
 
+      DocumentReference userDocument =
+          FirebaseFirestore.instance.collection('users').doc(uid);
+
       DocumentReference courseDocument = FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -273,18 +300,19 @@ class FirebaseService {
           .doc(lesson);
 
       FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot user = await transaction.get(userDocument);
         DocumentSnapshot course = await transaction.get(courseDocument);
 
         if (!course.exists) {
           courseDocument.set({
             'progress': progress,
+            'isPassed': true,
           });
-        } else {
-          if (course['progress'] < 0.999) {
-            transaction.update(courseDocument, {
-              'progress': progress,
-            });
-          }
+
+          int newValue = user['progress'] + 1;
+          userDocument.update({
+            'progress': newValue,
+          });
         }
       });
     } catch (e) {

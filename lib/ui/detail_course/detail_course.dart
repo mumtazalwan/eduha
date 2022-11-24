@@ -153,6 +153,8 @@ class _DetailCourseViewState extends State<DetailCourseView> {
                                                   .courseFoundation[e['index']]
                                                   .mainTitle,
                                               indexCourse: e['index'],
+                                              length: _detailCourseModel!
+                                                  .courseFoundation.length,
                                             ),
                                           );
                                         },
