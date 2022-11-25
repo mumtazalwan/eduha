@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -43,17 +45,44 @@ class _RecommendedState extends State<Recommended> {
                   ),
                 ),
               ),
-              Text(widget.course_name, style: GoogleFonts.inter(fontSize: 18.sp)),
+              Text(widget.course_name,
+                  style: GoogleFonts.inter(fontSize: 18.sp)),
               SizedBox(height: 15.h),
-              LinearPercentIndicator(
-                padding: const EdgeInsets.all(0),
-                percent: 0.2,
-                barRadius: Radius.circular(2),
-                backgroundColor: ColorValues.green.withOpacity(0.2),
-                progressColor: ColorValues.green,
-              ),
+              _progressIndicator(widget.course_name),
             ],
           ),
         ));
+  }
+
+  Widget _progressIndicator(String title) {
+    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('Math Foundation')
+          .doc(title)
+          .snapshots(),
+      builder: (_, snapshot) {
+        if (!snapshot.hasData || snapshot.hasError) {
+          return Container();
+        } else {
+          var e = snapshot.data!;
+
+          return e.exists &&
+                  e.data()!.containsKey('progress') &&
+                  e['progress'] > 0
+              ? LinearPercentIndicator(
+                  padding: const EdgeInsets.all(0),
+                  percent: e['progress'] == 1 || e['progress'] > 1
+                      ? 1.0
+                      : e['progress'],
+                  barRadius: const Radius.circular(2),
+                  backgroundColor: ColorValues.green.withOpacity(0.2),
+                  progressColor: ColorValues.green,
+                )
+              : Container();
+        }
+      },
+    );
   }
 }

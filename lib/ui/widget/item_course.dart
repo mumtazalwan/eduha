@@ -25,11 +25,13 @@ class ItemCourse extends StatelessWidget {
         Navigate.navigatorPush(
           context,
           DetailCourseView(
-              id: model[index].materialId,
-              title: model[index].foundationName,
-              desc: model[index].description,
-              img: model[index].coursePath,
-              titleLearningPath: 'Math Foundation'),
+            id: model[index].materialId,
+            title: model[index].foundationName,
+            desc: model[index].description,
+            img: model[index].coursePath,
+            titleLearningPath: 'Math Foundation',
+            length: model[index].totalLength,
+          ),
         );
       },
       child: Container(
@@ -89,7 +91,9 @@ class ItemCourse extends StatelessWidget {
                   e['progress'] > 0
               ? LinearPercentIndicator(
                   padding: const EdgeInsets.all(0),
-                  percent: e['progress'] == 1 ? 1.0 : e['progress'],
+                  percent: e['progress'] == 1 || e['progress'] > 1
+                      ? 1.0
+                      : e['progress'],
                   barRadius: const Radius.circular(1),
                   backgroundColor: ColorValues.green.withOpacity(0.2),
                   progressColor: ColorValues.green,

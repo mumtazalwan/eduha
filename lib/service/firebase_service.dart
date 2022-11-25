@@ -246,8 +246,9 @@ class FirebaseService {
               'isLastIndex': false,
             });
 
+            print('Total Length F = $length');
             print('progress = $progress');
-            double progressLearning = progress / 14;
+            double progressLearning = progress / length;
             print('progress learning = $progressLearning');
 
             double learningPathProgress =
@@ -264,7 +265,8 @@ class FirebaseService {
                 'index': index,
               });
 
-              double progressLearning = progress / 14;
+              print('Total Length F = $length');
+              double progressLearning = progress / length;
               print('progressLearning = $progressLearning');
 
               double learningPathProgress =

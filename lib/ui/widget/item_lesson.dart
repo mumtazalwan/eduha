@@ -12,7 +12,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import '../../common/color_values.dart';
 
 class ItemLesson extends StatefulWidget {
-  int index, id;
+  int index, id, length;
   List<CourseFoundation> course;
   List<Exercise> exercise;
   String learningPath, courseTitle;
@@ -24,7 +24,8 @@ class ItemLesson extends StatefulWidget {
       this.index = 0,
       required this.id,
       required this.learningPath,
-      required this.courseTitle})
+      required this.courseTitle,
+      required this.length})
       : super(key: key);
 
   @override
@@ -105,7 +106,7 @@ class _ItemLessonState extends State<ItemLesson> {
                               course: widget.courseTitle,
                               lesson: widget.course[widget.index].mainTitle,
                               indexCourse: widget.index,
-                              length: widget.course.length,
+                              length: widget.length,
                             ),
                           );
                         },
@@ -230,7 +231,7 @@ class _ItemLessonState extends State<ItemLesson> {
                               course: widget.courseTitle,
                               lesson: widget.course[widget.index].mainTitle,
                               indexCourse: widget.index,
-                              length: widget.course.length,
+                              length: widget.length,
                             ),
                           );
                         },

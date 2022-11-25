@@ -15,7 +15,7 @@ import '../../common/navigate.dart';
 import '../lesson/lesson.dart';
 
 class DetailCourseView extends StatefulWidget {
-  final int id;
+  final int id, length;
   final String title, titleLearningPath, desc, img;
 
   const DetailCourseView(
@@ -24,7 +24,8 @@ class DetailCourseView extends StatefulWidget {
       required this.title,
       required this.desc,
       required this.img,
-      required this.titleLearningPath})
+      required this.titleLearningPath,
+      required this.length})
       : super(key: key);
 
   @override
@@ -38,6 +39,7 @@ class _DetailCourseViewState extends State<DetailCourseView> {
   Future _getApi() async {
     _detailCourseModel = await ApiService().getDetailCourse(widget.id);
     _initLearningPath();
+    print('Total Length D = ${widget.length}');
     if (mounted) {
       setState(() {
         _isLoaded = true;
@@ -153,8 +155,7 @@ class _DetailCourseViewState extends State<DetailCourseView> {
                                                   .courseFoundation[e['index']]
                                                   .mainTitle,
                                               indexCourse: e['index'],
-                                              length: _detailCourseModel!
-                                                  .courseFoundation.length,
+                                              length: widget.length,
                                             ),
                                           );
                                         },
@@ -189,6 +190,7 @@ class _DetailCourseViewState extends State<DetailCourseView> {
                                         exercise: _detailCourseModel!.exercise,
                                         learningPath: widget.titleLearningPath,
                                         courseTitle: widget.title,
+                                        length: widget.length,
                                       );
                                     },
                                   ),
