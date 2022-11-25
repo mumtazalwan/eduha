@@ -40,7 +40,7 @@ class _LogInViewState extends State<LogInView> {
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: Container(
-                  margin: EdgeInsets.only(top: 10.h),
+                  margin: EdgeInsets.only(top: 5.h),
                   child: Center(
                     child: Column(
                       children: [
@@ -52,7 +52,7 @@ class _LogInViewState extends State<LogInView> {
                               children: [
                                 Image.asset(
                                   'assets/images/logo.png',
-                                  width: 225.w,
+                                  width: 200.w,
                                 ),
                                 SizedBox(
                                   height: 140.h,
@@ -205,7 +205,7 @@ class _LogInViewState extends State<LogInView> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 120.h,
+                                  height: 110.h,
                                 ),
                               ],
                             ),
@@ -215,7 +215,7 @@ class _LogInViewState extends State<LogInView> {
                           child: Align(
                             alignment: Alignment.bottomCenter,
                             child: Container(
-                              padding: EdgeInsets.all(15),
+                              padding: EdgeInsets.symmetric(vertical: 0),
                               color: ColorValues.grey,
                               child: Center(
                                 child: GestureDetector(

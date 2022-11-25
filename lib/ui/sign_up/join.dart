@@ -26,7 +26,7 @@ class _JoinViewState extends State<JoinView> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.only(top: 10.h),
+          margin: EdgeInsets.only(top: 5.h),
           child: Center(
             child: Column(
               children: [
@@ -36,7 +36,7 @@ class _JoinViewState extends State<JoinView> {
                     children: [
                       Image.asset(
                         'assets/images/logo.png',
-                        width: 225.w,
+                        width: 200.w,
                       ),
                       SizedBox(
                         height: 210.h,
@@ -47,7 +47,7 @@ class _JoinViewState extends State<JoinView> {
                               await FirebaseService().signInGoogle();
 
                           if (shouldNavigate) {
-                            Navigate.navigatorPushAndRemove(context, Home());
+                            Navigate.navigatorPushAndRemove(context, const Home());
                           }
                         },
                         child: Container(
@@ -151,7 +151,7 @@ class _JoinViewState extends State<JoinView> {
                         ),
                       ),
                       SizedBox(
-                        height: 250.h,
+                        height: 230.h,
                       ),
                     ],
                   ),
@@ -165,7 +165,7 @@ class _JoinViewState extends State<JoinView> {
                       child: Center(
                         child: GestureDetector(
                           onTap: () {
-                            Navigate.navigatorPush(context, LogInView());
+                            Navigate.navigatorPush(context, const LogInView());
                           },
                           child: RichText(
                             text: TextSpan(

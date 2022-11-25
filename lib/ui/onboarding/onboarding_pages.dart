@@ -38,7 +38,7 @@ class _OnBoardingState extends State<OnBoarding> {
                 Container(
                   height: 150.w,
                   child: Center(
-                    child: Image.asset('assets/images/logo.png', width: 255.w),
+                    child: Image.asset('assets/images/logo.png', width: 200.w),
                   ),
                 ),
                 Expanded(
