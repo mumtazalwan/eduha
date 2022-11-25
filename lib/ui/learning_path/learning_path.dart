@@ -101,6 +101,7 @@ class _LearningPathViewState extends State<LearningPathView> {
                             titleLearningPath: widget.titleLearningPath,
                             desc: model.description,
                             image: model.coursePath,
+                            length: model.totalLength,
                           );
                         },
                       ),

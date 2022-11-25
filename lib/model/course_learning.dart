@@ -39,6 +39,7 @@ class CourseFoundation {
     required this.idCourse,
     required this.foundationName,
     required this.description,
+    required this.totalLength,
   });
 
   int materialId;
@@ -46,6 +47,7 @@ class CourseFoundation {
   int idCourse;
   String foundationName;
   String description;
+  int totalLength;
 
   factory CourseFoundation.fromJson(Map<String, dynamic> json) => CourseFoundation(
     materialId: json["material_id"],
@@ -53,6 +55,7 @@ class CourseFoundation {
     idCourse: json["id_course"],
     foundationName: json["foundation_name"],
     description: json["description"],
+    totalLength: json["total_length"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -61,5 +64,6 @@ class CourseFoundation {
     "id_course": idCourse,
     "foundation_name": foundationName,
     "description": description,
+    "total_length": totalLength,
   };
 }

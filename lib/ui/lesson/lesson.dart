@@ -38,6 +38,7 @@ class _LessonViewState extends State<LessonView> {
   Future _getApi() async {
     _model = await ApiService().getMaterial(widget.id);
     await _checkIsLastIndex();
+    print('Total Length L = ${widget.length}');
     if (mounted) {
       setState(() {
         _isLoaded = true;
@@ -194,7 +195,6 @@ class _LessonViewState extends State<LessonView> {
                                           _progress += 1 /
                                               _model!.courseFoundation.length
                                                   .toDouble();
-                                          print('length = `${_model!.courseFoundation.length}');
                                         });
 
                                         await FirebaseService()
@@ -218,7 +218,6 @@ class _LessonViewState extends State<LessonView> {
                                             _model!.courseFoundation.length
                                                 .toDouble();
 
-                                        print('length = `${_model!.courseFoundation.length}');
                                       });
 
                                       await FirebaseService()

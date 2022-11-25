@@ -64,7 +64,8 @@ class _HomeDashboardState extends State<HomeDashboard> {
                             margin: EdgeInsets.only(top: 25.h, bottom: 15.h),
                             child: Column(children: [
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
                                 width: MediaQuery.of(context).size.width,
                                 height: 150,
                                 child: Row(
@@ -89,7 +90,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                       progressColor: Colors.amber,
                                     ),
                                     Container(
-                                      margin: EdgeInsets.only(left: 20),
+                                      margin: const EdgeInsets.only(left: 20),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -122,14 +123,14 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                 width: double.infinity,
                                 height: 80,
                                 child: ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 30.w),
                                   itemCount: 3,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return Container(
-                                      margin: EdgeInsets.only(bottom: 2),
+                                      margin: const EdgeInsets.only(bottom: 2),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -161,8 +162,9 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                 ),
                               ),
                               Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 20),
-                                  child: Divider(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: const Divider(
                                     color: Colors.grey,
                                     thickness: 1,
                                   )),
@@ -170,13 +172,13 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                 height: 30.sp,
                               ),
                               Container(
-                                margin: EdgeInsets.only(bottom: 30),
+                                margin: const EdgeInsets.only(bottom: 30),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
                                       child: Text("Get started with Logic",
                                           style: GoogleFonts.inter(
                                             fontSize: 20.sp,
@@ -186,18 +188,18 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                     SizedBox(
                                       height: 30.h,
                                     ),
-                                    GetStarted()
+                                    const GetStarted()
                                   ],
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(bottom: 30),
+                                margin: const EdgeInsets.only(bottom: 30),
                                 child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 20),
                                         child: Text("Recomemended for you",
                                             style: GoogleFonts.inter(
@@ -245,6 +247,10 @@ class _HomeDashboardState extends State<HomeDashboard> {
                                                               .coursePath,
                                                           titleLearningPath:
                                                               'Math Foundation',
+                                                          length: _courseLearningModel!
+                                                              .courseFoundation[
+                                                                  index]
+                                                              .totalLength,
                                                         ),
                                                       ),
                                                     );

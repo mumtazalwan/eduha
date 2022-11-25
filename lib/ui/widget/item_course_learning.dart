@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ItemCourseLearning extends StatelessWidget {
   final String title, titleLearningPath, desc, image;
-  final int id;
+  final int id, length;
 
   const ItemCourseLearning(
       {Key? key,
@@ -15,7 +15,8 @@ class ItemCourseLearning extends StatelessWidget {
       required this.desc,
       required this.image,
       required this.id,
-      required this.titleLearningPath})
+      required this.titleLearningPath,
+      required this.length})
       : super(key: key);
 
   @override
@@ -23,14 +24,16 @@ class ItemCourseLearning extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigate.navigatorPush(
-            context,
-            DetailCourseView(
-              id: id,
-              title: title,
-              titleLearningPath: titleLearningPath,
-              desc: desc,
-              img: image,
-            ));
+          context,
+          DetailCourseView(
+            id: id,
+            title: title,
+            titleLearningPath: titleLearningPath,
+            desc: desc,
+            img: image,
+            length: length,
+          ),
+        );
       },
       child: Container(
         width: double.infinity,
