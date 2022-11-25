@@ -43,7 +43,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                 SliverFillRemaining(
                   hasScrollBody: false,
                   child: Container(
-                    margin: EdgeInsets.only(top: 10.h),
+                    margin: EdgeInsets.only(top: 5.h),
                     child: Center(
                       child: Column(
                         children: [
@@ -55,7 +55,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                 children: [
                                   Image.asset(
                                     'assets/images/logo.png',
-                                    width: 225.w,
+                                    width: 200.w,
                                   ),
                                   SizedBox(
                                     height: 100.h,
@@ -114,11 +114,10 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                                 _firstNameController.text,
                                                 _lastNameController.text,
                                                 _birthdayController.text);
-                                        print(
-                                            'SHOULD NAVIGATE : $shouldNavigate');
+
                                         if (shouldNavigate) {
                                           Navigate.navigatorPush(
-                                              context, Home());
+                                              context, const Home());
                                         }
                                         setState(() {
                                           _isLoad = false;
@@ -170,7 +169,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             child: Align(
                               alignment: Alignment.bottomCenter,
                               child: Container(
-                                padding: EdgeInsets.all(15),
+                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                                 color: ColorValues.grey,
                                 child: Center(
                                   child: Column(
@@ -179,7 +178,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                       GestureDetector(
                                         onTap: () {
                                           Navigate.navigatorPush(
-                                              context, LogInView());
+                                              context, const LogInView());
                                         },
                                         child: RichText(
                                           text: TextSpan(
@@ -205,7 +204,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 7.h,
+                                        height: 10.h,
                                       ),
                                       Text(
                                         'By tapping Create account, I agree to Brain’s Terms and Privacy Policy.',
