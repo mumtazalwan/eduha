@@ -286,7 +286,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
         );
         setState(() {
           if (selectedDate != null) {
-            controller.text = DateFormat('yyyy -MM-dd').format(selectedDate);
+            controller.text = DateFormat('EEEE, d MMM yyyy').format(selectedDate);
           }
         });
       },

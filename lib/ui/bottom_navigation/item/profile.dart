@@ -152,7 +152,10 @@ class _ProfileViewState extends State<ProfileView> {
                                           fontWeight: FontWeight.w400),
                                     ),
                                     SizedBox(height: 5.h),
-                                    Text("10 Maret 2006",
+                                    Text(
+                                        e.data()!.containsKey('birthday')
+                                            ? e['birthday']
+                                            : '-',
                                         style: GoogleFonts.inter(
                                             fontSize: 16.sp,
                                             fontWeight: FontWeight.w600)),
