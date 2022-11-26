@@ -79,18 +79,23 @@ class _ProfileViewState extends State<ProfileView> {
                               height: 5.h,
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.add,
-                                    size: 16.sp, color: Colors.blueAccent),
-                                SizedBox(width: 5.w),
-                                Text(
-                                  'Add Status',
-                                  style: GoogleFonts.inter(
-                                      fontSize: 16.sp,
-                                      color: Colors.blueAccent),
+                                const Icon(
+                                  Icons.flash_on_outlined,
+                                  color: Colors.amber,
+                                  size: 24,
                                 ),
+                                Text(
+                                  "${e['progress']}",
+                                  style: GoogleFonts.inter(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ],
@@ -130,7 +135,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 40.w),
-                            child: Divider(
+                            child: const Divider(
                               color: Colors.black,
                               thickness: 0.4,
                             ),
@@ -167,7 +172,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 40.w),
-                            child: Divider(
+                            child: const Divider(
                               color: Colors.black,
                               thickness: 0.4,
                             ),
@@ -201,7 +206,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 40.w),
-                            child: Divider(
+                            child: const Divider(
                               color: Colors.black,
                               thickness: 0.4,
                             ),
@@ -238,7 +243,7 @@ class _ProfileViewState extends State<ProfileView> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 40.w),
-                            child: Divider(
+                            child: const Divider(
                               color: Colors.black,
                               thickness: 0.4,
                             ),

@@ -80,10 +80,17 @@ class _DetailQuizzState extends State<DetailQuizz> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.data.question,
-                              style: GoogleFonts.inter(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w500)),
+                          Container(
+                            padding: EdgeInsets.all(15),
+                            width: double.infinity,
+                            child: Text(widget.data.question,
+                                style: GoogleFonts.inter(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w500)),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5),),
+                          ),
                           SizedBox(height: 40.h),
                           Row(
                             children: [
