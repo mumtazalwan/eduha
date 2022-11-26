@@ -160,7 +160,7 @@ class _JoinViewState extends State<JoinView> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
-                      padding: const EdgeInsets.all(15),
+                      height: 75.h,
                       color: ColorValues.grey,
                       child: Center(
                         child: GestureDetector(
