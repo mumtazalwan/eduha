@@ -1,5 +1,5 @@
 import 'package:eduha/model/course_learning.dart';
-import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/api_service.dart';
 import 'package:eduha/ui/widget/item_course.dart';
 import 'package:eduha/ui/widget/item_course_learning.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,11 @@ import 'package:lottie/lottie.dart';
 import '../../common/color_values.dart';
 
 class LearningPathView extends StatefulWidget {
+  final String titleLearningPath;
   final int id;
 
-  const LearningPathView({Key? key, required this.id}) : super(key: key);
+  const LearningPathView({Key? key, required this.id, required this.titleLearningPath})
+      : super(key: key);
 
   @override
   State<LearningPathView> createState() => _LearningPathViewState();
@@ -64,7 +66,7 @@ class _LearningPathViewState extends State<LearningPathView> {
                         height: 10.h,
                       ),
                       Text(
-                        'Math Foundation',
+                        widget.titleLearningPath,
                         style: GoogleFonts.inter(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.w700,
@@ -96,8 +98,10 @@ class _LearningPathViewState extends State<LearningPathView> {
                           return ItemCourseLearning(
                             id: model.materialId,
                             title: model.foundationName,
+                            titleLearningPath: widget.titleLearningPath,
                             desc: model.description,
                             image: model.coursePath,
+                            length: model.totalLength,
                           );
                         },
                       ),

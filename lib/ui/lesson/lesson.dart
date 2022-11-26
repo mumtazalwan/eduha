@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eduha/common/color_values.dart';
-import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/model/material.dart';
-import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/api_service.dart';
+import 'package:eduha/service/firebase_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,9 +11,18 @@ import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class LessonView extends StatefulWidget {
-  final int id;
+  final String learningPath, course, lesson;
+  final int id, indexCourse, length;
 
-  const LessonView({Key? key, required this.id}) : super(key: key);
+  const LessonView(
+      {Key? key,
+      required this.id,
+      required this.learningPath,
+      required this.course,
+      required this.lesson,
+      required this.indexCourse,
+      required this.length})
+      : super(key: key);
 
   @override
   State<LessonView> createState() => _LessonViewState();
@@ -20,12 +31,14 @@ class LessonView extends StatefulWidget {
 class _LessonViewState extends State<LessonView> {
   MaterialModel? _model;
   bool _isLoaded = false;
-  final _controller = PageController();
+  PageController? _controller;
   double _progress = 0;
   int _indicatorProgress = 0;
 
   Future _getApi() async {
     _model = await ApiService().getMaterial(widget.id);
+    await _checkIsLastIndex();
+    print('Total Length L = ${widget.length}');
     if (mounted) {
       setState(() {
         _isLoaded = true;
@@ -33,10 +46,37 @@ class _LessonViewState extends State<LessonView> {
     }
   }
 
+  Future _checkIsLastIndex() async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    var doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection(widget.learningPath)
+        .doc(widget.course)
+        .collection('course')
+        .doc(widget.lesson)
+        .get();
+    Map<String, dynamic>? data = doc.data();
+
+    if (doc.exists) {
+      if (!data!['isLastIndex'] == true) {
+        _controller = PageController(initialPage: data['index'] + 1);
+        _progress = data['progress'];
+      } else {
+        _controller = PageController(initialPage: 0);
+      }
+    } else {
+      _controller = PageController();
+      print('Not have document');
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print('les = ${widget.lesson}');
+    print('cour = ${widget.course}');
     _getApi();
   }
 
@@ -44,7 +84,7 @@ class _LessonViewState extends State<LessonView> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _controller.dispose();
+    _controller?.dispose();
   }
 
   @override
@@ -73,24 +113,36 @@ class _LessonViewState extends State<LessonView> {
           barRadius: const Radius.circular(3),
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 15.w),
-            child: Row(
-              children: [
-                Text(
-                  '1',
-                  style: GoogleFonts.inter(
-                    color: Colors.black,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600,
+          StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Container();
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(right: 15.w),
+                  child: Row(
+                    children: [
+                      Text(
+                        '${snapshot.data!['progress']}',
+                        style: GoogleFonts.inter(
+                          color: Colors.black,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const Icon(
+                        Icons.flash_on_outlined,
+                        color: Colors.amber,
+                      ),
+                    ],
                   ),
-                ),
-                const Icon(
-                  Icons.flash_on_outlined,
-                  color: Colors.amber,
-                ),
-              ],
-            ),
+                );
+              }
+            },
           ),
         ],
       ),
@@ -136,24 +188,51 @@ class _LessonViewState extends State<LessonView> {
                               ),
                               onPressed: (index ==
                                       _model!.courseFoundation.length - 1)
-                                  ? () {
-                                      _indicatorProgress == 0
-                                          ? setState(() {
-                                              _indicatorProgress += 1;
-                                              _progress += 1 /
-                                                  _model!
-                                                      .courseFoundation.length
-                                                      .toDouble();
-                                            })
-                                          : Navigator.pop(context);
+                                  ? () async {
+                                      if (_indicatorProgress == 0) {
+                                        setState(() {
+                                          _indicatorProgress += 1;
+                                          _progress += 1 /
+                                              _model!.courseFoundation.length
+                                                  .toDouble();
+                                        });
+
+                                        await FirebaseService()
+                                            .saveProgressCourse(
+                                          widget.learningPath,
+                                          widget.course,
+                                          'course',
+                                          widget.lesson,
+                                          _progress,
+                                          widget.length,
+                                          index: index,
+                                          indexCourse: widget.indexCourse,
+                                        );
+                                      } else {
+                                        Navigator.pop(context);
+                                      }
                                     }
-                                  : () {
+                                  : () async {
                                       setState(() {
                                         _progress += 1 /
                                             _model!.courseFoundation.length
                                                 .toDouble();
+
                                       });
-                                      _controller.nextPage(
+
+                                      await FirebaseService()
+                                          .saveProgressCourse(
+                                        widget.learningPath,
+                                        widget.course,
+                                        'course',
+                                        widget.lesson,
+                                        _progress,
+                                        widget.length,
+                                        index: index,
+                                        indexCourse: widget.indexCourse,
+                                      );
+
+                                      _controller?.nextPage(
                                         duration:
                                             const Duration(milliseconds: 400),
                                         curve: Curves.easeInOut,
@@ -186,8 +265,10 @@ class _LessonViewState extends State<LessonView> {
                       ),
                       Align(
                         alignment: Alignment.center,
-                        child: Lottie.asset('assets/lottie/finish.json',
-                            height: 280.h),
+                        child: Lottie.asset(
+                          'assets/lottie/finish.json',
+                          height: 280.h,
+                        ),
                       ),
                       SizedBox(
                         height: 20.h,
@@ -200,7 +281,18 @@ class _LessonViewState extends State<LessonView> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
+                          await FirebaseService().saveProgressCourse(
+                            widget.learningPath,
+                            widget.course,
+                            'course',
+                            widget.lesson,
+                            _progress,
+                            widget.length,
+                            isLastIndex: true,
+                            indexCourse: widget.indexCourse,
+                          );
+                          if (!mounted) return;
                           Navigator.pop(context);
                         },
                         child: const Text('Finish'),
@@ -209,8 +301,10 @@ class _LessonViewState extends State<LessonView> {
                   ),
                 )
           : Center(
-              child: Lottie.asset('assets/lottie/cubes_loader.json',
-                  height: 200.h),
+              child: Lottie.asset(
+                'assets/lottie/cubes_loader.json',
+                height: 200.h,
+              ),
             ),
     );
   }

@@ -6,15 +6,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ItemCourseLearning extends StatelessWidget {
-  final String title, desc, image;
-  final int id;
+  final String title, titleLearningPath, desc, image;
+  final int id, length;
 
   const ItemCourseLearning(
       {Key? key,
       required this.title,
       required this.desc,
       required this.image,
-      required this.id})
+      required this.id,
+      required this.titleLearningPath,
+      required this.length})
       : super(key: key);
 
   @override
@@ -22,13 +24,16 @@ class ItemCourseLearning extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigate.navigatorPush(
-            context,
-            DetailCourseView(
-              id: id,
-              title: title,
-              desc: desc,
-              img: image,
-            ));
+          context,
+          DetailCourseView(
+            id: id,
+            title: title,
+            titleLearningPath: titleLearningPath,
+            desc: desc,
+            img: image,
+            length: length,
+          ),
+        );
       },
       child: Container(
         width: double.infinity,

@@ -1,6 +1,8 @@
 import 'package:eduha/common/color_values.dart';
+import 'package:eduha/model/course_learning.dart';
+import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/model/learning_path.dart';
-import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/api_service.dart';
 import 'package:eduha/ui/widget/item_learning_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,10 +23,14 @@ class CourseView extends StatefulWidget {
 
 class _CourseViewState extends State<CourseView> {
   LearningPathModel? _learningPathModel;
+  CourseLearningModel? _courseLearningModel;
+  CourseLearningModel? _courseLearningModel2;
   bool _isLoaded = false;
 
-  Future getApi() async {
+  Future _getApi() async {
     _learningPathModel = await ApiService().getLearningPath();
+    _courseLearningModel = await ApiService().getCourseLearning(111);
+    _courseLearningModel2 = await ApiService().getCourseLearning(111);
     if (mounted) {
       setState(() {
         _isLoaded = true;
@@ -36,11 +42,13 @@ class _CourseViewState extends State<CourseView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getApi();
+    _getApi();
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+
     return Scaffold(
       body: SafeArea(
         child: _isLoaded
@@ -84,8 +92,13 @@ class _CourseViewState extends State<CourseView> {
                             child: ListView.builder(
                               padding: EdgeInsets.only(left: 20.w, right: 5.w),
                               scrollDirection: Axis.horizontal,
-                              itemCount: 4,
-                              itemBuilder: (_, index) => const ItemCourse(),
+                              itemCount: _courseLearningModel!.courseFoundation.length,
+                              itemBuilder: (_, index) {
+                                return ItemCourse(
+                                  model: _courseLearningModel!.courseFoundation,
+                                  index: index,
+                                );
+                              },
                             ),
                           ),
                           SizedBox(
@@ -95,10 +108,7 @@ class _CourseViewState extends State<CourseView> {
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: Text(
                               'Recommended for beginners',
-                              style: GoogleFonts.inter(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: theme.headline5,
                             ),
                           ),
                           SizedBox(
@@ -109,8 +119,13 @@ class _CourseViewState extends State<CourseView> {
                             child: ListView.builder(
                               padding: EdgeInsets.only(left: 20.w, right: 5.w),
                               scrollDirection: Axis.horizontal,
-                              itemCount: 4,
-                              itemBuilder: (_, index) => const ItemCourse(),
+                              itemCount: _courseLearningModel!.courseFoundation.length,
+                              itemBuilder: (_, index) {
+                                return ItemCourse(
+                                  model: _courseLearningModel!.courseFoundation,
+                                  index: index,
+                                );
+                              },
                             ),
                           ),
                         ],
@@ -124,11 +139,8 @@ class _CourseViewState extends State<CourseView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Popular Leaning Paths',
-                              style: GoogleFonts.inter(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              'Popular Learning Paths',
+                              style: theme.headline5,
                             ),
                             SizedBox(
                               height: 20.h,
@@ -157,8 +169,10 @@ class _CourseViewState extends State<CourseView> {
                 ),
               )
             : Center(
-                child: Lottie.asset('assets/lottie/cubes_loader.json',
-                    height: 200.h),
+                child: Lottie.asset(
+                  'assets/lottie/cubes_loader.json',
+                  height: 200.h,
+                ),
               ),
       ),
     );

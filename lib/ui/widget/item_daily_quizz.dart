@@ -17,7 +17,7 @@ class _DailyQuizzCardState extends State<DailyQuizzCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20.h),
+      margin: EdgeInsets.symmetric(vertical: 15.h),
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -30,11 +30,11 @@ class _DailyQuizzCardState extends State<DailyQuizzCard> {
             children: [
               Text(widget.course_name,
                   style: GoogleFonts.inter(
-                      fontSize: 12, fontWeight: FontWeight.w400)),
+                      fontSize: 12.sp, fontWeight: FontWeight.w400)),
               Padding(
                   padding: EdgeInsets.symmetric(vertical: 15),
                   child: Text(widget.quiz_name,
-                      style: GoogleFonts.inter(fontSize: 20))),
+                      style: GoogleFonts.inter(fontSize: 20.sp))),
             ],
           ),
           Container(
@@ -46,7 +46,7 @@ class _DailyQuizzCardState extends State<DailyQuizzCard> {
           ),
           Text(
             widget.mini_description,
-            style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400),
+            style: GoogleFonts.inter(fontSize: 14.sp, fontWeight: FontWeight.w400),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

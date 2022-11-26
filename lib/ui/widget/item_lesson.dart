@@ -1,22 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eduha/common/navigate.dart';
 import 'package:eduha/model/detail_course.dart';
 import 'package:eduha/ui/exercise/exercise.dart';
 import 'package:eduha/ui/lesson/lesson.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+
+import '../../common/color_values.dart';
 
 class ItemLesson extends StatefulWidget {
-  int index, id;
+  int index, id, length;
   List<CourseFoundation> course;
   List<Exercise> exercise;
+  String learningPath, courseTitle;
 
   ItemLesson(
       {Key? key,
       required this.course,
       required this.exercise,
       this.index = 0,
-      required this.id})
+      required this.id,
+      required this.learningPath,
+      required this.courseTitle,
+      required this.length})
       : super(key: key);
 
   @override
@@ -63,7 +72,7 @@ class _ItemLessonState extends State<ItemLesson> {
                 SizedBox(
                   width: 15.w,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: Text(
                     widget.course[widget.index].materialName,
@@ -80,7 +89,7 @@ class _ItemLessonState extends State<ItemLesson> {
             height: 20.h,
           ),
           SizedBox(
-            height: 210.h,
+            height: 225.h,
             child: _isVisible
                 ? ListView(
                     physics: const BouncingScrollPhysics(),
@@ -93,11 +102,141 @@ class _ItemLessonState extends State<ItemLesson> {
                             context,
                             LessonView(
                               id: widget.course[widget.index].id,
+                              learningPath: widget.learningPath,
+                              course: widget.courseTitle,
+                              lesson: widget.course[widget.index].mainTitle,
+                              indexCourse: widget.index,
+                              length: widget.length,
                             ),
                           );
                         },
                         child: Container(
-                          width: 220.w,
+                          width: 235.w,
+                          margin: EdgeInsets.only(right: 20.w),
+                          padding: const EdgeInsets.all(15),
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 120.h,
+                                child: Image.asset(
+                                  'assets/pre-algebra/${widget.course[widget.index].imgPath}.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Text(
+                                widget.course[widget.index].mainTitle,
+                                style: GoogleFonts.inter(
+                                  fontSize: 16.sp,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Text(
+                                widget.course[widget.index].mainDescription,
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              _progressIndicatorCourse(
+                                  widget.course[widget.index].mainTitle),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigate.navigatorPush(
+                            context,
+                            ExerciseView(
+                              index: widget.index,
+                              learningPath: widget.learningPath,
+                              course: widget.courseTitle,
+                              lesson:
+                                  widget.exercise[widget.index].exerciseTitle,
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: 235.w,
+                          margin: EdgeInsets.only(right: 20.w),
+                          padding: const EdgeInsets.all(15),
+                          color: Colors.white,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 120.h,
+                                child: Image.asset(
+                                  'assets/pre-algebra/a.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Text(
+                                widget.exercise[widget.index].exerciseTitle,
+                                style: GoogleFonts.inter(
+                                  fontSize: 16.sp,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Text(
+                                widget.exercise[widget.index].exerciseDesc,
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(
+                                height: 13.h,
+                              ),
+                              _progressIndicatorExercise(
+                                  widget.exercise[widget.index].exerciseTitle),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : ListView(
+                    physics: const BouncingScrollPhysics(),
+                    padding: EdgeInsets.only(left: 20.w),
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigate.navigatorPush(
+                            context,
+                            LessonView(
+                              id: widget.course[widget.index].id,
+                              learningPath: widget.learningPath,
+                              course: widget.courseTitle,
+                              lesson: widget.course[widget.index].mainTitle,
+                              indexCourse: widget.index,
+                              length: widget.length,
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: 235.w,
                           margin: EdgeInsets.only(right: 20.w),
                           padding: const EdgeInsets.all(15),
                           color: Colors.white,
@@ -131,105 +270,14 @@ class _ItemLessonState extends State<ItemLesson> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
+                              _progressIndicatorCourse(
+                                  widget.course[widget.index].mainTitle),
                             ],
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigate.navigatorPush(
-                            context,
-                            ExerciseView(
-                              index: widget.index,
-                            ),
-                          );
-                        },
-                        child: Container(
-                          width: 220.w,
-                          margin: EdgeInsets.only(right: 20.w),
-                          padding: const EdgeInsets.all(15),
-                          color: Colors.white,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                height: 120.h,
-                                color: Colors.black,
-                              ),
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              Text(
-                                widget.exercise[widget.index].exerciseTitle,
-                                style: GoogleFonts.inter(
-                                  fontSize: 16.sp,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                widget.exercise[widget.index].exerciseDesc,
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                : ListView(
-                    physics: const BouncingScrollPhysics(),
-                    padding: EdgeInsets.only(left: 20.w),
-                    scrollDirection: Axis.horizontal,
-                    children: [
                       Container(
-                        width: 220.w,
-                        margin: EdgeInsets.only(right: 20.w),
-                        padding: const EdgeInsets.all(15),
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 120.h,
-                              color: Colors.black,
-                            ),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            Text(
-                              widget.course[widget.index].mainTitle,
-                              style: GoogleFonts.inter(
-                                fontSize: 16.sp,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              widget.course[widget.index].mainDescription,
-                              style: GoogleFonts.inter(
-                                fontWeight: FontWeight.w500,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 220.w,
+                        width: 235.w,
                         margin: EdgeInsets.only(right: 20.w),
                         padding: const EdgeInsets.all(15),
                         color: Colors.white,
@@ -278,6 +326,66 @@ class _ItemLessonState extends State<ItemLesson> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _progressIndicatorCourse(String title) {
+    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection(widget.learningPath)
+          .doc(widget.courseTitle)
+          .collection('course')
+          .doc(title)
+          .snapshots(),
+      builder: (_, snapshot) {
+        if (!snapshot.hasData || snapshot.hasError) {
+          return Container();
+        } else {
+          var e = snapshot.data!;
+
+          return snapshot.data!.exists
+              ? LinearPercentIndicator(
+                  padding: const EdgeInsets.all(0),
+                  percent: e['progress'],
+                  barRadius: const Radius.circular(1),
+                  backgroundColor: ColorValues.green.withOpacity(0.2),
+                  progressColor: ColorValues.green,
+                )
+              : Container();
+        }
+      },
+    );
+  }
+
+  Widget _progressIndicatorExercise(String title) {
+    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      stream: FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection(widget.learningPath)
+          .doc(widget.courseTitle)
+          .collection('exercise')
+          .doc(title)
+          .snapshots(),
+      builder: (_, snapshot) {
+        if (!snapshot.hasData || snapshot.hasError) {
+          return Container();
+        } else {
+          var e = snapshot.data!;
+
+          return snapshot.data!.exists
+              ? LinearPercentIndicator(
+                  padding: const EdgeInsets.all(0),
+                  percent: e['progress'],
+                  barRadius: const Radius.circular(1),
+                  backgroundColor: ColorValues.green.withOpacity(0.2),
+                  progressColor: ColorValues.green,
+                )
+              : Container();
+        }
+      },
     );
   }
 }

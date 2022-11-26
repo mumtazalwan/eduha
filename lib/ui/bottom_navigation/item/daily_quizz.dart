@@ -1,5 +1,6 @@
 import 'package:eduha/model/daily_quizz.dart';
-import 'package:eduha/service/api-service.dart';
+import 'package:eduha/service/api_service.dart';
+import 'package:eduha/ui/detail_quizz/detail_quizz.dart';
 import 'package:eduha/ui/widget/item_daily_quizz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,13 +42,20 @@ class _DailyQuizzState extends State<DailyQuizz> {
               title: Text('Daily Chalenge',
                   style: GoogleFonts.inter(fontSize: 16)),
             ),
-            backgroundColor: Colors.grey.withOpacity(0.5),
+            backgroundColor: Colors.grey.withOpacity(0.2),
             body: ListView.builder(
-                itemCount: dailyQuizzModel?.learningPath.length,
+                itemCount: dailyQuizzModel?.data.length,
                 itemBuilder: (_, index) {
-                  var quizz_list = dailyQuizzModel!.learningPath[index];
+                  var quizz_list = dailyQuizzModel!.data[index];
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailQuizz(
+                                    data: dailyQuizzModel!.data[index],
+                                  )));
+                    },
                     child: DailyQuizzCard(
                       course_name: quizz_list.courseName,
                       quiz_name: quizz_list.quizName,
@@ -58,8 +66,10 @@ class _DailyQuizzState extends State<DailyQuizz> {
                 }),
           )
         : Center(
-            child:
-                Lottie.asset('assets/lottie/cubes_loader.json', height: 200.h),
+            child: Lottie.asset(
+              'assets/lottie/cubes_loader.json',
+              height: 200.h,
+            ),
           );
   }
 }
