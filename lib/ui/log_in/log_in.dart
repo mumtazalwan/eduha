@@ -106,7 +106,7 @@ class _LogInViewState extends State<LogInView> {
                                                 _passwordController.text);
 
                                         if (shouldNavigate) {
-                                          Navigate.navigatorPush(
+                                          Navigate.navigatorPushAndRemove(
                                               context, Home());
                                         }
                                         setState(() {
@@ -171,7 +171,7 @@ class _LogInViewState extends State<LogInView> {
                                               .signInGoogle();
 
                                       if (shouldNavigate) {
-                                        Navigate.navigatorPush(context, Home());
+                                        Navigate.navigatorPushAndRemove(context, Home());
                                       }
                                     },
                                     child: Container(

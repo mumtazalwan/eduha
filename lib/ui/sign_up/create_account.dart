@@ -116,7 +116,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                                 _birthdayController.text);
 
                                         if (shouldNavigate) {
-                                          Navigate.navigatorPush(
+                                          Navigate.navigatorPushAndRemove(
                                               context, const Home());
                                         }
                                         setState(() {
